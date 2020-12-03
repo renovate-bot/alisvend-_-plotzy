@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Models\Follower;
 use App\Models\Hashtag;
 use App\Models\Conspiracy;
+use App\Models\Bet;
 
 class User extends Authenticatable
 {
@@ -18,13 +19,15 @@ class User extends Authenticatable
         return $this->hasMany(Follower::class);
     }
 
-    public function hashtags(){
-        return $this->hasMany(Hashtag::class);
-
-    }
+   
 
     public function conspiracies(){
         return $this->hasMany(Conspiracy::class);
+        
+    }
+
+    public function bets(){
+        return $this->hasMany(Bet::class);
         
     }
 
