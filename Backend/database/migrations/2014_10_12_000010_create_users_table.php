@@ -19,8 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('profile_pic');
-            $table->unsignedInteger('score');
+            $table->string('profile_pic')->nullable();
+            $table->unsignedInteger('score')->default(0);
             $table->string('hashtag')->default('000000');
             $table->rememberToken();
             $table->timestamps();
