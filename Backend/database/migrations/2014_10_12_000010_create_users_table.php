@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('profile_pic')->nullable();
             $table->unsignedInteger('score')->default(0);
             $table->string('hashtag')->default('000000');
+            $table->boolean('isAnonymous')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

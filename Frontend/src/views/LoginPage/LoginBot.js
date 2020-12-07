@@ -62,7 +62,7 @@ Review.defaultProps = {
   steps: undefined,
 };
 
-class RegFormBot extends Component {
+class LoginBot extends Component {
   render() {
     return (
       <ChatBot
@@ -204,4 +204,4 @@ class RegFormBot extends Component {
   }
 }
 
-export default RegFormBot;
+export default LoginBot;

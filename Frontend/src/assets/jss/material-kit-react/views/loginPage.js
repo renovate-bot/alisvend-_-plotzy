@@ -85,7 +85,18 @@ const signupPageStyle = {
   },
   inputIconsColor: {
     color: "#495057"
+  },
+
+  LoginBot:{
+
+    position: "fixed",
+    bottom: "0",
+    right: "0",
+    marginRight:"15px",
+    marginBottom:"5px",
+    
   }
 };
+
 
 export default signupPageStyle;

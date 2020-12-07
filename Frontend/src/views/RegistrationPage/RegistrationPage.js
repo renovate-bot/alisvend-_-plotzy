@@ -21,7 +21,7 @@ import image from "assets/img/bg7.jpg";
 
 import axios from "axios";
 import { Redirect } from 'react-router-dom';
-import RegFormBot from "./RegFormBot";
+
 
 const useStyles = makeStyles(styles);
 
@@ -47,6 +47,7 @@ export default function RegistrationPage(props) {
           email: email,
           password: password,
           password_confirmation: password_confirmation,
+         
 
         }).then(response => {
           if (response.status === 201) {
@@ -178,7 +179,7 @@ export default function RegistrationPage(props) {
               </Card>
             </GridItem>
           </GridContainer>
-          <RegFormBot className="RegFormBot"/>
+          
         </div>
 
       </div>

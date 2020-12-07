@@ -5,7 +5,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 import Email from "@material-ui/icons/Email";
-
+import LoginBot from "./LoginBot";
 // core components
 
 import GridContainer from "components/Grid/GridContainer.js";
@@ -23,8 +23,8 @@ import image from "assets/img/bj8.jpg";
 import axios from "axios";
 import { Redirect } from 'react-router-dom';
 
-//chatbot
-import ChatBot from 'react-simple-chatbot';
+import Avatar from "./Avatar";
+
 
 const useStyles = makeStyles(styles);
 
@@ -134,7 +134,9 @@ export default function LoginPage(props) {
               </Card>
             </GridItem>
           </GridContainer>
-     
+          <Avatar/>
+          <div className={classes.LoginBot}> <LoginBot/></div>
+         
         </div>
         
       </div>

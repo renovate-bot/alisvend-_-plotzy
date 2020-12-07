@@ -8,6 +8,7 @@
   "dependencies": {
     "@material-ui/core": "4.10.0",
     "@material-ui/icons": "4.9.1",
+    "@pixiv/three-vrm": "^0.5.5",
     "axios": "^0.21.0",
     "classnames": "2.2.6",
     "history": "4.10.1",
@@ -23,7 +24,9 @@
     "react-simple-chatbot": "^0.6.1",
     "react-slick": "0.26.1",
     "react-swipeable-views": "0.13.9",
-    "styled-components": "^5.2.1"
+    "react-three-fiber": "^5.3.7",
+    "styled-components": "^5.2.1",
+    "three": "^0.123.0"
   },
   "devDependencies": {
     "@babel/cli": "7.10.1",
