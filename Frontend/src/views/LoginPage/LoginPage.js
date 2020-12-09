@@ -18,13 +18,14 @@ import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import image from "assets/img/bj8.jpg";
-
+import { Divider } from '@material-ui/core';
+import {List} from '@material-ui/core';
 // packages
 import axios from "axios";
 import { Redirect } from 'react-router-dom';
 
 import Avatar from "./Avatar";
-
+import RegistrationDialogue from "./RegistrationDialogue";
 
 const useStyles = makeStyles(styles);
 
@@ -126,15 +127,21 @@ export default function LoginPage(props) {
                     />
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
+               
+                  
                     <Button simple color="primary" size="lg" type="submit">
                      Login
                     </Button>
+                   <div className={classes.regDialog}><RegistrationDialogue  /></div>
+                    
                   </CardFooter>
+              
                 </form>
+               
               </Card>
             </GridItem>
           </GridContainer>
-          <Avatar/>
+          
           <div className={classes.LoginBot}> <LoginBot/></div>
          
         </div>

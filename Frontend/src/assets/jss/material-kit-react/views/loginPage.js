@@ -45,7 +45,9 @@ const signupPageStyle = {
     }
   },
   form: {
-    margin: "0"
+    margin: "0",
+    width:"100%",
+    height:"100%",
   },
   cardHeader: {
     width: "auto",
@@ -87,14 +89,20 @@ const signupPageStyle = {
     color: "#495057"
   },
 
-  LoginBot:{
+  LoginBot: {
 
     position: "fixed",
     bottom: "0",
-    right: "0",
-    marginRight:"15px",
-    marginBottom:"5px",
-    
+    left: "0",
+    marginLeft: "15px",
+    marginBottom: "5px",
+
+  },
+
+  regDialog: {
+    width: "320%",
+   
+   
   }
 };
 

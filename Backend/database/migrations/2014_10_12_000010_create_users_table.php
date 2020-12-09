@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('username')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('score')->default(0);
             $table->string('hashtag')->default('000000');
             $table->boolean('isAnonymous')->default(false);
+            $table->date('dob');
+            $table->enum('gender', ['female', 'male','other']);
             $table->rememberToken();
             $table->timestamps();
         });
