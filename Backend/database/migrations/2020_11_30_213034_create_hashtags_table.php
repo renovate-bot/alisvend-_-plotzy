@@ -15,7 +15,7 @@ class CreateHashtagsTable extends Migration
     {
         Schema::create('hashtags', function (Blueprint $table) {
             $table->id();
-            $table->enum('name', ['politics','health','social','series','sports','science']);
+            $table->enum('name', ['politics','health','social','series','sports','tech']);
             $table->timestamps();
         });
     }

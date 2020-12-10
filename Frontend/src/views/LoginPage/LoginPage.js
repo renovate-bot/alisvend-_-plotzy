@@ -24,7 +24,7 @@ import {List} from '@material-ui/core';
 import axios from "axios";
 import { Redirect } from 'react-router-dom';
 
-import Avatar from "./Avatar";
+
 import RegistrationDialogue from "./RegistrationDialogue";
 
 const useStyles = makeStyles(styles);
@@ -39,7 +39,15 @@ export default function LoginPage(props) {
   const [toHome, setToHome] = React.useState(false);
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  
+  const [hashtags, setHashtags] = React.useState([]);
+
+  React.useEffect(() => {
+    getHashtags();
+   
+}, []);
+
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     
@@ -57,7 +65,7 @@ export default function LoginPage(props) {
                     axios.get('api/user').then(response => {
                       setToHome(true);
                         sessionStorage.setItem('userId', response.data.id);
-                        sessionStorage.setItem('username', response.data.name);
+                        sessionStorage.setItem('username', response.data.username);
                     });
                 }
             })
@@ -67,6 +75,23 @@ export default function LoginPage(props) {
       if (toHome === true) {
         return <Redirect to='/landing-page' />
     }
+
+
+
+   const getHashtags=()=> {
+     
+        axios.get('/api/hashtags')
+              .then(response => {
+                  
+                  setHashtags( response.data );
+  
+              })
+              .catch(error => console.error(error)
+              )
+  
+     
+  }
+   
   return (
     <div>
      
@@ -132,6 +157,7 @@ export default function LoginPage(props) {
                     <Button simple color="primary" size="lg" type="submit">
                      Login
                     </Button>
+                   
                    <div className={classes.regDialog}><RegistrationDialogue  /></div>
                     
                   </CardFooter>
@@ -142,7 +168,7 @@ export default function LoginPage(props) {
             </GridItem>
           </GridContainer>
           
-          <div className={classes.LoginBot}> <LoginBot/></div>
+          <div className={classes.LoginBot}> <LoginBot  hashtags={hashtags}/></div>
          
         </div>
         

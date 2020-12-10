@@ -1,7 +1,7 @@
 {
-  "name": "material-kit-react",
+  "name": "plotzy",
   "version": "1.9.0",
-  "description": "Material Kit React. Coded by Creative Tim",
+  "description": "plotzy, a conspiracy zone coded by Ali Al-Hajj",
   "private": true,
   "main": "src/index.js",
   "proxy": "http://localhost:8000",

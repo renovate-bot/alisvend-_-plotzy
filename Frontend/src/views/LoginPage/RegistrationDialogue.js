@@ -27,6 +27,7 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import { RadioGroup, Radio, FormControl, FormLabel, FormControlLabel } from "@material-ui/core";
 
+
 import axios from "axios";
 import { Redirect } from 'react-router-dom';
 
@@ -61,7 +62,7 @@ export default function NewTask(props) {
     const handleSubmit = (e) => {
         setOpen(false);
         e.preventDefault();
-        
+
         axios.get('/sanctum/csrf-cookie')
             .then(response => {
                 axios.post('/register', {
@@ -73,7 +74,7 @@ export default function NewTask(props) {
                     gender: gender,
 
                 }).then(response => {
-                    
+
                     if (response.status === 201) {
                         setToHome(true);
                         sessionStorage.setItem('loggedIn', true);
@@ -101,141 +102,139 @@ export default function NewTask(props) {
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title"></DialogTitle>
                 <DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        X
+                    <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                            X
           </Button>
-                    
-                </DialogActions>
-                    
-                                <form className={classes.form} >
-                                    <CardHeader color="primary" className={classes.cardHeader}>
-                                        <h4>Register Now and post your theory!</h4>
 
-                                    </CardHeader>
+                    </DialogActions>
 
-                                    <CardBody>
-                                        <CustomInput
-                                            labelText="First Name..."
-                                            id="name"
-                                            value={username}
+                    <form className={classes.form} >
+                        <CardHeader color="primary" className={classes.cardHeader}>
+                            <h4>Register Now and post your theory!</h4>
 
-                                            formControlProps={{
-                                                fullWidth: true
-                                            }}
-                                            inputProps={{
-                                                onChange: e => setUsername(e.target.value),
-                                                type: "text",
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <People className={classes.inputIconsColor} />
-                                                    </InputAdornment>
-                                                )
-                                            }}
-                                        />
-                                        <CustomInput
-                                            labelText="Email..."
-                                            id="email"
-                                            value={email}
+                        </CardHeader>
 
-                                            formControlProps={{
-                                                fullWidth: true
-                                            }}
-                                            inputProps={{
-                                                type: "email",
-                                                onChange: e => setEmail(e.target.value),
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <Email className={classes.inputIconsColor} />
-                                                    </InputAdornment>
-                                                )
-                                            }}
-                                        />
-                                        <CustomInput
-                                            labelText="Password"
-                                            id="password"
-                                            value={password}
+                        <CardBody>
+                            <CustomInput
+                                labelText="Username..."
+                                id="username"
+                                value={username}
 
-                                            formControlProps={{
-                                                fullWidth: true
-                                            }}
-                                            inputProps={{
-                                                type: "password",
-                                                onChange: e => setPassword(e.target.value),
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <Icon className={classes.inputIconsColor}>
-                                                            lock_outline
+                                formControlProps={{
+                                    fullWidth: false
+                                }}
+                                inputProps={{
+                                    onChange: e => setUsername(e.target.value),
+                                    type: "text",
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <People className={classes.inputIconsColor} />
+                                        </InputAdornment>
+                                    )
+                                }}
+                            />
+                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <CustomInput
+                                labelText="Email..."
+                                id="email"
+                                value={email}
+
+                                formControlProps={{
+                                    fullWidth: false
+                                }}
+                                inputProps={{
+                                    type: "email",
+                                    onChange: e => setEmail(e.target.value),
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <Email className={classes.inputIconsColor} />
+                                        </InputAdornment>
+                                    )
+                                }}
+                            />
+                            <br></br>
+                            <CustomInput
+                                labelText="Password"
+                                id="password"
+                                value={password}
+
+                                formControlProps={{
+                                    fullWidth: false
+                                }}
+                                inputProps={{
+                                    type: "password",
+                                    onChange: e => setPassword(e.target.value),
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <Icon className={classes.inputIconsColor}>
+                                                lock_outline
                             </Icon>
-                                                    </InputAdornment>
-                                                ),
-                                                autoComplete: "off"
-                                            }}
-                                        />
+                                        </InputAdornment>
+                                    ),
+                                    autoComplete: "off"
+                                }}
+                            />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <CustomInput
+                                labelText="Password Confirmation"
+                                id="password_confirmation"
+                                value={password_confirmation}
 
-                                        <CustomInput
-                                            labelText="Password Confirmation"
-                                            id="password_confirmation"
-                                            value={password_confirmation}
-
-                                            formControlProps={{
-                                                fullWidth: true
-                                            }}
-                                            inputProps={{
-                                                type: "password",
-                                                onChange: e => setConfirmPassword(e.target.value),
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <Icon className={classes.inputIconsColor}>
-                                                            lock_outline
+                                formControlProps={{
+                                    fullWidth: false
+                                }}
+                                inputProps={{
+                                    type: "password",
+                                    onChange: e => setConfirmPassword(e.target.value),
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <Icon className={classes.inputIconsColor}>
+                                                lock_outline
                             </Icon>
-                                                    </InputAdornment>
-                                                ),
-                                                autoComplete: "off"
-                                            }}
-                                        />
-                                        
-                                      <CustomInput
-                                      
-                                            labelText=""
-                                            id="dob"
-                                            value={dob}
+                                        </InputAdornment>
+                                    ),
+                                    autoComplete: "off"
+                                }}
+                            />
+<br></br><br></br><FormLabel component="legend">Date of birth:</FormLabel>
+                            <CustomInput
 
-                                            formControlProps={{
-                                                fullWidth: true
-                                            }}
-                                            inputProps={{
-                                                type: "date",
-                                                onChange: e => setDOB(e.target.value),
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <Email className={classes.inputIconsColor} />
-                                                    </InputAdornment>
-                                                )
-                                            }}
-                                        />
+                                labelText=""
+                                id="dob"
+                                value={dob}
 
-                                        <FormControl component="fieldset">
-                                            <FormLabel component="legend">Gender</FormLabel>
-                                            <RadioGroup aria-label="gender" name="gender1" value={gender} onChange={e => setGender(e.target.value)}>
-                                                <FormControlLabel value="female" control={<Radio />} label="Female" />
-                                                <FormControlLabel value="male" control={<Radio />} label="Male" />
-                                                <FormControlLabel value="other" control={<Radio />} label="Other" />
-                                            </RadioGroup>
-                                        </FormControl>
+                                formControlProps={{
+                                    fullWidth: false
+                                }}
+                                inputProps={{
+                                    type: "date",
+                                    onChange: e => setDOB(e.target.value),
+
+                                }}
+                            />
+                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <FormControl component="fieldset">
+                                <FormLabel component="legend">Gender</FormLabel>
+                                <RadioGroup aria-label="gender" name="gender1" value={gender} onChange={e => setGender(e.target.value)}>
+                                    <FormControlLabel value="female" control={<Radio />} label="Female" />
+                                    <FormControlLabel value="male" control={<Radio />} label="Male" />
+                                    <FormControlLabel value="other" control={<Radio />} label="Other" />
+                                </RadioGroup>
+                            </FormControl>
 
 
-                                    </CardBody>
-                                    <CardFooter className={classes.cardFooter}>
-                                        <Button simple color="primary" size="lg" type="submit" onClick={handleSubmit}>
-                                            Get started 
+                        </CardBody>
+                        <CardFooter className={classes.cardFooter}>
+                            <Button simple color="primary" size="lg" type="submit" onClick={handleSubmit}>
+                                Get started
                     </Button>
-                                    </CardFooter>
-                                </form>
-                               
-                         
+                        </CardFooter>
+                    </form>
+
+
                 </DialogContent>
-                
+
             </Dialog>
         </div>
     );
