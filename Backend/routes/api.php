@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HashtagController;
+use App\Http\Controllers\ConspiracyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/hashtags', [HashtagController::class,'displayHashtags']);
+Route::post('/addConspiracyAnonymously', [ConspiracyController::class,'addConspiracyAnonymously']);

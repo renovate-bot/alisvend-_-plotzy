@@ -61,6 +61,9 @@ if (!sessionStorage.getItem('loggedIn')) {
          <Link to="/analytics-page" className={classes.dropdownLink}>
          Analytics
        </Link>,
+        <Link to="/notifications-page" className={classes.dropdownLink}>
+        Notifications
+      </Link>,
        <Link to="/" onClick={logout} className={classes.dropdownLink}>
        Logout
      </Link>

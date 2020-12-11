@@ -22,7 +22,15 @@ class ConspiracyController extends Controller
         $media->save();
 
     }
+public function addConspiracyAnonymously(Request $request){
+    $conspiracy = new Conspiracy();
+    
+    $conspiracy->title= $request->title;
+    $conspiracy->content = $request->content;
+    $conspiracy->hashtag_id = $request->hashtag_id;
+    $conspiracy->save();
 
+}
     public function displayConspiraciesByHashtag(Request $request){
 
         $user = Auth::id();

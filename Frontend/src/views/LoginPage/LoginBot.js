@@ -8,26 +8,39 @@ class Review extends Component {
     super(props);
 
     this.state = {
-      hashtag: '',
-      title:'',
+      hashtag: null,
+      title: '',
       conspiracy: '',
-      hashtags:this.props.hashtags,
+
     };
   }
 
-  
-  componentWillMount() {
-    const { steps } = this.props;
-    const { hashtag, title,conspiracy,hashtags} = steps;
-    //const {hashtags}=this.state;
-    this.setState({ hashtag, title,conspiracy });
+  addConsp = () => {
+
+    axios
+      .post("/api/addConspiracyAnonymously", {
+        title: this.props.steps.title.value,
+        content: this.props.steps.content.value,
+        hashtag_id: this.props.steps.hashtag.value,
+      })
+      .catch((error) => console.error(error))
 
   }
 
+  componentDidMount() {
 
+    const { steps } = this.props;
+    const { hashtag, title, conspiracy } = steps;
+
+    this.setState({ hashtag, title, conspiracy });
+    console.log(this.state);
+    //this.addConsp();
+  
+  }
 
   render() {
-    const { hashtag, title,conspiracy,hashtags} = this.state;
+    const { hashtag, title, conspiracy } = this.state;
+
     return (
       <div style={{ width: '100%' }}>
         <h3>Summary</h3>
@@ -36,11 +49,11 @@ class Review extends Component {
             <tr>
 
               <td>{title.value} </td>
-             
+
             </tr>
 
             <tr><td>{conspiracy.value}  </td></tr>
-              <tr><td>{hashtag.value}</td></tr>
+           
 
           </tbody>
         </table>
@@ -57,32 +70,73 @@ Review.defaultProps = {
   steps: undefined,
 };
 
-class LoginBot extends Component {
-  render() {
-    return (
+export default function LoginBot(props) {
+
+  const [hashtags, setHashtags] = React.useState([]);
+  const [options, setOptions] = React.useState([]);
+  React.useEffect(() => {
+
+    getHashtags();
+
+  }, []);
+
+  const insertOptions = () => {
+    const option = [];
+    hashtags.map((hashtag) => { option.push({ value: hashtag.id, label: hashtag.name, trigger: '3' }) })
+
+
+    setOptions(option);
+
+  }
+
+  React.useEffect(() => {
+    insertOptions();
+
+  }, [hashtags]);
+
+
+
+
+  const getHashtags = () => {
+
+    axios.get('/api/hashtags')
+      .then(response => {
+
+        setHashtags(response.data);
+
+      })
+      .catch(error => console.error(error)
+      )
+
+
+  }
+
+  const check = options.length > 0;
+
+  return (
+
+    check > 0 ?
       <ChatBot
         steps={[
 
           {
-            id: 'hashtag',
+            id: '1',
             message: 'Choose a hashtag to share your conspiracy anonymously now!',
-            trigger: '2',
+            trigger: 'hashtag',
           },
           {
-            id: '2',
-            options: [
-              { value: 'politics', label: 'Politics', trigger: '3' },
-              { value: 'health', label: 'Health', trigger: '3' },
-              { value: 'sports', label: 'Sports', trigger: '3' },
-              { value: 'series', label: 'Series', trigger: '3' },
-              { value: 'social', label: 'Social', trigger: '3' },
-              { value: 'tech', label: 'Tech', trigger: '3' },
-            ],
+            id: 'hashtag',
+            options: options,
+            trigger: '3',
+
+
           },
           {
+
             id: '3',
             message: 'Write a title for your conspiracy',
             trigger: 'title',
+
           },
           {
             id: 'title',
@@ -90,6 +144,7 @@ class LoginBot extends Component {
             trigger: '4',
           },
           {
+
             id: '4',
             message: 'Write your conspiracy to be posted anonymously now!',
             trigger: 'conspiracy',
@@ -116,9 +171,8 @@ class LoginBot extends Component {
             end: true,
           },
         ]}
-      />
-    );
-  }
+      /> : <></>
+  );
+
 }
 
-export default LoginBot;

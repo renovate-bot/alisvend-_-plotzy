@@ -18,8 +18,7 @@ import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import image from "assets/img/bj8.jpg";
-import { Divider } from '@material-ui/core';
-import {List} from '@material-ui/core';
+
 // packages
 import axios from "axios";
 import { Redirect } from 'react-router-dom';
@@ -39,12 +38,9 @@ export default function LoginPage(props) {
   const [toHome, setToHome] = React.useState(false);
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [hashtags, setHashtags] = React.useState([]);
+ 
 
-  React.useEffect(() => {
-    getHashtags();
-   
-}, []);
+  
 
 
 
@@ -78,19 +74,7 @@ export default function LoginPage(props) {
 
 
 
-   const getHashtags=()=> {
-     
-        axios.get('/api/hashtags')
-              .then(response => {
-                  
-                  setHashtags( response.data );
   
-              })
-              .catch(error => console.error(error)
-              )
-  
-     
-  }
    
   return (
     <div>
@@ -168,7 +152,7 @@ export default function LoginPage(props) {
             </GridItem>
           </GridContainer>
           
-          <div className={classes.LoginBot}> <LoginBot  hashtags={hashtags}/></div>
+          <div className={classes.LoginBot}> <LoginBot  /></div>
          
         </div>
         
