@@ -3,63 +3,48 @@ import PropTypes from 'prop-types';
 import ChatBot from 'react-simple-chatbot';
 import axios from "axios";
 
-class Review extends Component {
-  constructor(props) {
-    super(props);
+function Review(props) {
+  const [hashtag, setHashtag] = React.useState(null);
+  const [title, setTitle] = React.useState('');
+  const [conspiracy, setConspiracy] = React.useState('');
 
-    this.state = {
-      hashtag: null,
-      title: '',
-      conspiracy: '',
-
-    };
-  }
-
-  addConsp = () => {
-
-    axios
-      .post("/api/addConspiracyAnonymously", {
-        title: this.props.steps.title.value,
-        content: this.props.steps.content.value,
-        hashtag_id: this.props.steps.hashtag.value,
-      })
-      .catch((error) => console.error(error))
-
-  }
-
-  componentDidMount() {
-
-    const { steps } = this.props;
+  React.useEffect(() => {
+    const { steps } = props;
     const { hashtag, title, conspiracy } = steps;
 
-    this.setState({ hashtag, title, conspiracy });
-    console.log(this.state);
-    //this.addConsp();
-  
+    setTitle(title);
+    setConspiracy(conspiracy);
+    setHashtag(hashtag);
+    
+  }, []);
+
+  const addConsp = () => {
+    axios
+      .post("/api/addConspiracyAnonymously", {
+        title: title.value,
+        content: conspiracy.value,
+        hashtag_id: hashtag.value,
+      })
+      .catch((error) => console.error(error))
   }
 
-  render() {
-    const { hashtag, title, conspiracy } = this.state;
+  return (
+    <div style={{ width: '100%' }}>
+      <h3>Summary</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>Title: {title.value} </td>
+          </tr>
+          <tr><td>Conspiracy: {conspiracy.value}  </td></tr>
+        </tbody>
+      </table>
+      <br></br>
+      Enter Confirm to post your theory now!
+     <button onClick={addConsp}>Confirm</button>
+    </div>
+  );
 
-    return (
-      <div style={{ width: '100%' }}>
-        <h3>Summary</h3>
-        <table>
-          <tbody>
-            <tr>
-
-              <td>{title.value} </td>
-
-            </tr>
-
-            <tr><td>{conspiracy.value}  </td></tr>
-           
-
-          </tbody>
-        </table>
-      </div>
-    );
-  }
 }
 
 Review.propTypes = {
@@ -161,7 +146,7 @@ export default function LoginBot(props) {
           },
           {
             id: 'review',
-            component: <Review />,
+            component: <Review/>,
             asMessage: true,
             trigger: 'end-message',
           },

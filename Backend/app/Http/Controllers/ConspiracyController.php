@@ -17,9 +17,9 @@ class ConspiracyController extends Controller
         $conspiracy->hashtag_id = $request->hashtag_id;
         $conspiracy->save();
 
-        $media = new Media();
-        $media->path= $request->media;
-        $media->save();
+        // $media = new Media();
+        // $media->path= $request->media;
+        // $media->save();
 
     }
 public function addConspiracyAnonymously(Request $request){
@@ -29,7 +29,7 @@ public function addConspiracyAnonymously(Request $request){
     $conspiracy->content = $request->content;
     $conspiracy->hashtag_id = $request->hashtag_id;
     $conspiracy->save();
-
+  
 }
     public function displayConspiraciesByHashtag(Request $request){
 
@@ -42,6 +42,12 @@ public function addConspiracyAnonymously(Request $request){
 
         $user = Auth::id();
         $conspiracies = Conspiracy::where('user_id', $user)->with()->latest()->simplePaginate(6);
+        return $conspiracies;
+    }
+
+    public function displayConspiracies(){
+
+        $conspiracies=Conspiracy::with('hashtag')->get();
         return $conspiracies;
     }
 

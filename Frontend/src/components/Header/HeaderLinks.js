@@ -39,9 +39,7 @@ export default function HeaderLinks(props) {
         }
     })
 };
-if (!sessionStorage.getItem('loggedIn')) {
-  return <Redirect to="/" />
-} else {
+
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
@@ -90,5 +88,4 @@ if (!sessionStorage.getItem('loggedIn')) {
       </ListItem>
     </List>
   );
-}
 }
