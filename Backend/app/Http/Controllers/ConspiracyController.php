@@ -47,7 +47,7 @@ public function addConspiracyAnonymously(Request $request){
 
     public function displayConspiracies(){
 
-        $conspiracies=Conspiracy::with('hashtag')->get();
+        $conspiracies=Conspiracy::get();
         return $conspiracies;
     }
 

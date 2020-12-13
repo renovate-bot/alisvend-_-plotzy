@@ -25,7 +25,7 @@ const fetchConspiracies = () => {
 
     return(
 
-<div>{conspiracies.map((conspiracy)=>{return (<div key={conspiracy.id}> <h3>{conspiracy.title}</h3><p>{conspiracy.content}</p></div>);})}</div>
+<div>{conspiracies.map((conspiracy)=>{return (<div key={conspiracy.id}> <h3 style={{color:'black'}}>{conspiracy.title}</h3><p style={{color:'black'}}>{conspiracy.content}</p></div>);})}</div>
 
     );
 

@@ -197,20 +197,17 @@ export default function NewTask(props) {
                                     autoComplete: "off"
                                 }}
                             />
-<br></br><br></br><FormLabel component="legend">Date of birth:</FormLabel>
-                            <CustomInput
-
-                                labelText=""
-                                id="dob"
+                            <br></br><br></br>
+                            <TextField
+                                id="date"
+                                label="Date of birth"
+                                type="date"
                                 value={dob}
-
-                                formControlProps={{
-                                    fullWidth: false
-                                }}
-                                inputProps={{
-                                    type: "date",
-                                    onChange: e => setDOB(e.target.value),
-
+                                onChange={e => { setDOB(e.target.value) }}
+                                defaultValue="2017-05-24"
+                                className={classes.textField}
+                                InputLabelProps={{
+                                    shrink: true,
                                 }}
                             />
                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

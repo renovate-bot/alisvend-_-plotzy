@@ -39,7 +39,7 @@ export default function Tabs() {
     const [title, setTitle] = React.useState('');
     const [conspiracy, setConspiracy] = React.useState('');
     const [hashtag, setHashtag] = React.useState(null);
-
+    const [image, setImage] = React.useState(null);
 
     const handleSubmitConspiracy = (e) => {
 
@@ -50,6 +50,7 @@ export default function Tabs() {
                     title: title,
                     content: conspiracy,
                     hashtag_id: hashtag,
+                    path:image,
                 })
                 .catch((error) => console.error(error))
                 
@@ -71,7 +72,7 @@ export default function Tabs() {
             <h2>Start adding tabs to see some magic happen!</h2>
             <Tab>
                 <div title="Cospiracy">
-                    <form onSubmit={handleSubmitConspiracy}>
+                    <form onSubmit={handleSubmitConspiracy} enctype="multipart/form-data">
                         <input
                             type="text"
                             name="title"

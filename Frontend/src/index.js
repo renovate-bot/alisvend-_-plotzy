@@ -1,5 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
+
+import { Provider } from 'react-redux';
+import store from './redux/Store';
+
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch } from "react-router-dom";
 
@@ -11,9 +15,12 @@ import LandingPage from "views/LandingPage/LandingPage.js";
 import ProfilePage from "views/ProfilePage/ProfilePage.js";
 import LoginPage from "views/LoginPage/LoginPage.js";
 
+import { StoreProvider } from "./redux/Store";
 var hist = createBrowserHistory();
 
 ReactDOM.render(
+
+<StoreProvider>
   <Router history={hist}>
     <Switch>
       <Route path="/landing-page" component={LandingPage} />
@@ -22,5 +29,6 @@ ReactDOM.render(
       <Route path="/analytics" component={LoginPage} />
     </Switch>
   </Router>,
+  </StoreProvider>,
   document.getElementById("root")
 );

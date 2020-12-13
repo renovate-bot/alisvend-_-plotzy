@@ -1,22 +1,43 @@
-import React, { Component } from 'react';
+import React, { useEffect,useContext,Component,Context } from 'react';
 import PropTypes from 'prop-types';
 import ChatBot from 'react-simple-chatbot';
 import axios from "axios";
 
+
+import { useStore } from "../../../src/redux/Store";
+
 function Review(props) {
+
+ 
+
   const [hashtag, setHashtag] = React.useState(null);
   const [title, setTitle] = React.useState('');
   const [conspiracy, setConspiracy] = React.useState('');
+  const {state, dispatch} = useStore();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const { steps } = props;
     const { hashtag, title, conspiracy } = steps;
+    console.log(title,"title");
 
     setTitle(title);
     setConspiracy(conspiracy);
     setHashtag(hashtag);
     
-  }, []);
+  }, [state.confirm]);
+
+
+
+ useEffect(() => {
+    
+  if(state.confirm){
+    addConsp();
+    dispatch({type: "toggle", message:"mmm"});
+   
+  }
+  },[state.confirm]);
+
+ 
 
   const addConsp = () => {
     axios
@@ -34,14 +55,14 @@ function Review(props) {
       <table>
         <tbody>
           <tr>
-            <td>Title: {title.value} </td>
+            <td>Title:  </td>
           </tr>
-          <tr><td>Conspiracy: {conspiracy.value}  </td></tr>
+          <tr><td>Conspiracy:   </td></tr>
         </tbody>
       </table>
       <br></br>
-      Enter Confirm to post your theory now!
-     <button onClick={addConsp}>Confirm</button>
+     
+     
     </div>
   );
 
@@ -56,10 +77,14 @@ Review.defaultProps = {
 };
 
 export default function LoginBot(props) {
+  
+ 
 
   const [hashtags, setHashtags] = React.useState([]);
   const [options, setOptions] = React.useState([]);
-  React.useEffect(() => {
+ 
+
+ useEffect(() => {
 
     getHashtags();
 
@@ -74,7 +99,7 @@ export default function LoginBot(props) {
 
   }
 
-  React.useEffect(() => {
+useEffect(() => {
     insertOptions();
 
   }, [hashtags]);
@@ -96,8 +121,10 @@ export default function LoginBot(props) {
 
   }
 
-  const check = options.length > 0;
+ 
 
+  const check = options.length > 0;
+  const {state, dispatch} = useStore();
   return (
 
     check > 0 ?
@@ -113,7 +140,6 @@ export default function LoginBot(props) {
             id: 'hashtag',
             options: options,
             trigger: '3',
-
 
           },
           {
@@ -146,15 +172,35 @@ export default function LoginBot(props) {
           },
           {
             id: 'review',
-            component: <Review/>,
+            component: <Review />,
             asMessage: true,
+            trigger: 'confirm',
+          },
+          {
+            id: 'confirm',
+            message: 'Enter confirm to post your theory',
+            trigger: '6',
+          },
+          {
+            id: '6',
+            user: true,
+            validator: (confirm) => {
+              if (confirm.toLowerCase()!=='confirm') {
+                return 'Enter confirm to post you theory!';
+              }
+             
+             dispatch({type: "toggle", message:"mmm"});
+            
+              return true;
+            },
             trigger: 'end-message',
           },
           {
             id: 'end-message',
-            message: 'Thanks! Your theory was posted successfully!',
-            end: true,
+            message: 'Thanks! Your theory was posted successfully! ',
+            trigger:'1',
           },
+          
         ]}
       /> : <></>
   );
