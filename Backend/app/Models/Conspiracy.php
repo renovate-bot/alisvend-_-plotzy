@@ -18,7 +18,7 @@ class Conspiracy extends Model
     }
 
     public function hashtag(){
-        return $this->hasOne(Hashtag::class);
+        return $this->belongsTo(Hashtag::class);
         
     }
 

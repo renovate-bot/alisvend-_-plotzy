@@ -1,3 +1,4 @@
+import { Select } from '@material-ui/core';
 import React from 'react';
 import apiClient from '../../../api';
 
@@ -20,9 +21,9 @@ const Hashtags = (props) => {
     
         return (
 
-            <select className="custom-select" onChange={(e) => { props.onChangeHashtagID(e.target.value) }} >
+            <Select className="custom-select" onChange={(e) => { props.onChangeHashtagID(e.target.value) }} >
                 <option value={0}>Choose a Hashtag</option>{hashtagsList}
-            </select>
+            </Select>
         );
   
    

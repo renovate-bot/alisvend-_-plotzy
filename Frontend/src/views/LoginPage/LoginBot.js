@@ -4,7 +4,7 @@ import ChatBot from 'react-simple-chatbot';
 import axios from "axios";
 
 
-import { useStore } from "../../../src/redux/Store";
+import { useStore } from "../../../src/globalState/Store";
 
 function Review(props) {
 

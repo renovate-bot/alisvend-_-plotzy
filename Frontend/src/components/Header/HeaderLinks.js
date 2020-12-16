@@ -59,12 +59,25 @@ export default function HeaderLinks(props) {
          <Link to="/analytics-page" className={classes.dropdownLink}>
          Analytics
        </Link>,
-        <Link to="/notifications-page" className={classes.dropdownLink}>
-        Notifications
-      </Link>,
+       
        <Link to="/" onClick={logout} className={classes.dropdownLink}>
        Logout
      </Link>
+        
+            
+          ]}
+        />
+         <CustomDropdown
+          noLiPadding
+          buttonText=""
+          buttonProps={{
+            className: classes.navLink,
+            color: "transparent"
+          }}
+          buttonIcon={Apps}
+          dropdownList={[
+            ,
+           
         
             
           ]}

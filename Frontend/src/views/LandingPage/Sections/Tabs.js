@@ -3,6 +3,11 @@ import "./styles.css";
 import apiClient from "../../../api.js";
 import Hashtags from "./Hashtags";
 
+import InputAdornment from "@material-ui/core/InputAdornment";
+import { Button, Input, TextareaAutosize } from "@material-ui/core";
+// import FormData from 'form-data'
+import ImageUploader from 'react-images-upload';
+
 const Tab = props => {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     const activeTab = props.children[activeTabIndex];
@@ -35,45 +40,60 @@ const Tab = props => {
     );
 };
 
-export default function Tabs() {
+export default function Tabs(props) {
     const [title, setTitle] = React.useState('');
     const [conspiracy, setConspiracy] = React.useState('');
     const [hashtag, setHashtag] = React.useState(null);
-    const [image, setImage] = React.useState(null);
+    const [image, setImage] = React.useState('');
+    const [conspiracies, setConspiracies] = React.useState([]);
+
+
+
+
+
+    const handleImage = (file) => {
+        setImage(file[0]);
+    }
 
     const handleSubmitConspiracy = (e) => {
 
         if (sessionStorage.getItem("loggedIn")) {
             e.preventDefault();
+            const fd = new FormData();
+            fd.append('title', title);
+            fd.append('content', conspiracy);
+            fd.append('hashtag_id', hashtag);
+            fd.append('path', image);
             apiClient
-                .post("/api/addConspiracy", {
-                    title: title,
-                    content: conspiracy,
-                    hashtag_id: hashtag,
-                    path:image,
-                })
+                .post("/api/addConspiracy",
+
+                    fd
+
+                ).then(()=>{props.onAddConsp()})
                 .catch((error) => console.error(error))
-                
-                e.target.reset();
-               
+
+            e.target.reset();
+
         }
-        
+        setConspiracies(props.conspiracies);
+
+
     }
-    
+
+
+
     const handleChangeHashtagID = hashtag => {
         setHashtag(hashtag);
     }
 
 
-
     return (
         <div className="App">
-            <h1>Tab Component Demo</h1>
-            <h2>Start adding tabs to see some magic happen!</h2>
+
             <Tab>
                 <div title="Cospiracy">
-                    <form onSubmit={handleSubmitConspiracy} enctype="multipart/form-data">
-                        <input
+                    <form onSubmit={handleSubmitConspiracy} >
+                        <Input
                             type="text"
                             name="title"
                             className=""
@@ -82,13 +102,13 @@ export default function Tabs() {
                             required
                         />
 
-                        <textarea name="Conspiracy" placeholder="Enter Conspiracy here..." onChange={e => setConspiracy(e.target.value)}></textarea>
-                        
+                        <TextareaAutosize name="Conspiracy" placeholder="Enter Conspiracy here..." onChange={e => setConspiracy(e.target.value)}/>
+
                         <Hashtags onChangeHashtagID={handleChangeHashtagID} />
-                        
-                        <input type="file" />
-                        
-                        <button type="submit">Post</button>
+
+
+                        <Input type="file" onChange={(e) => { handleImage(e.target.files) }}></Input>
+                        <Button type="submit">Post</Button>
                     </form>
                 </div>
 

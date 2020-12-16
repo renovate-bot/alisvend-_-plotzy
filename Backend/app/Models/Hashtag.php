@@ -14,7 +14,7 @@ class Hashtag extends Model
     
     public function conspiracies(){
 
-        return $this->belongsToMany(Conspiracy::class);
+        return $this->hasMany(Conspiracy::class);
     }
 
     public function bets(){
