@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useReducer } from 'react';
 
 const StoreContext = createContext();
-const initialState = {confirm: false, message: ""};
+const initialState = {confirm: false};
 
 const reducer = (state, action) => {
   switch(action.type) {
@@ -13,7 +13,7 @@ const reducer = (state, action) => {
       case "reset":
         return {
           confirm: false,
-          message: action.message
+         
         }
     default:
       throw new Error(`Unhandled action type: ${action.type}`);

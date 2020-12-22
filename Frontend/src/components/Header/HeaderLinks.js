@@ -41,8 +41,10 @@ export default function HeaderLinks(props) {
 };
 
   return (
-    <List className={classes.list}>
-      <ListItem className={classes.listItem}>
+    // <List className={classes.list}>
+    //   <ListItem className={classes.listItem}>
+    <div>
+      <div style={{"padding":"10px","float":"left"}}>
         <CustomDropdown
           noLiPadding
           buttonText=""
@@ -67,6 +69,8 @@ export default function HeaderLinks(props) {
             
           ]}
         />
+        </div>
+        <div style={{"padding":"10px","float":"left"}}>
          <CustomDropdown
           noLiPadding
           buttonText=""
@@ -81,24 +85,25 @@ export default function HeaderLinks(props) {
         
             
           ]}
-        />
-      </ListItem>
-      <ListItem className={classes.listItem}>
+        /></div>
+        </div>
+    //   </ListItem>
+    //   <ListItem className={classes.listItem}>
        
-      </ListItem>
-      <ListItem className={classes.listItem}>
+    //   </ListItem>
+    //   <ListItem className={classes.listItem}>
        
         
-      </ListItem>
-      <ListItem className={classes.listItem}>
+    //   </ListItem>
+    //   <ListItem className={classes.listItem}>
        
          
            
-      </ListItem>
-      <ListItem className={classes.listItem}>
+    //   </ListItem>
+    //   <ListItem className={classes.listItem}>
        
         
-      </ListItem>
-    </List>
+    //   </ListItem>
+    // </List>
   );
 }

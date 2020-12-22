@@ -100,12 +100,10 @@ export default function NewTask(props) {
                 Create Account
             </Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title"></DialogTitle>
+
                 <DialogContent>
                     <DialogActions>
-                        <Button onClick={handleClose} color="primary">
-                            X
-          </Button>
+                        
 
                     </DialogActions>
 

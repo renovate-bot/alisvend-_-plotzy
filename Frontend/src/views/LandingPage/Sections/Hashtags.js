@@ -1,4 +1,4 @@
-import { Select } from '@material-ui/core';
+import { MenuItem, Select } from '@material-ui/core';
 import React from 'react';
 import apiClient from '../../../api';
 
@@ -22,7 +22,7 @@ const Hashtags = (props) => {
         return (
 
             <Select className="custom-select" onChange={(e) => { props.onChangeHashtagID(e.target.value) }} >
-                <option value={0}>Choose a Hashtag</option>{hashtagsList}
+                <MenuItem value={0}>Choose a Hashtag</MenuItem>{hashtagsList}
             </Select>
         );
   

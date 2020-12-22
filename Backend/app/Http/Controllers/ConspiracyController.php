@@ -75,7 +75,7 @@ class ConspiracyController extends Controller
     public function displayConspiracies()
     {
 
-        $conspiracies = Conspiracy::with('hashtag')->with('media')->get();
+        $conspiracies = Conspiracy::with('hashtag')->with('media')->with('user')->get();
         return $conspiracies;
     }
 

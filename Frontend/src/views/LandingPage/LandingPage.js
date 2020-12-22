@@ -14,15 +14,16 @@ import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import Parallax from "components/Parallax/Parallax.js";
-
+import { Typography } from '@material-ui/core';
 import styles from "assets/jss/material-kit-react/views/landingPage.js";
-
+import { Card } from '@material-ui/core';
 // Sections for this page
 
 import TeamSection from "./Sections/TeamSection.js";
 import WorkSection from "./Sections/WorkSection.js";
-import Tabs from "./Sections/Tabs.js";
-import Conspiracies from "./Sections/Conspiracies.js";
+
+import TabPanel from './Sections/TabPanel.js'
+
 import apiClient from './../../api';
 
 const dashboardRoutes = [];
@@ -75,39 +76,51 @@ export default function LandingPage(props) {
       />
       <Parallax filter image={require("assets/img/bg4.jpg")}>
         <div className={classes.container}>
-          <GridContainer>
-            <GridItem xs={12} sm={12} md={6}>
-              <h1 className={classes.title}></h1>
-              <h4>
-
-              </h4>
-              <br />
-
-            </GridItem>
-          </GridContainer>
+       
         </div>
       </Parallax>
-      <div className={classNames(classes.main, classes.mainRaised)}>
-        <div className={classes.container}>
-          <Tabs onAddConsp={fetchConspiracies} />
-          <div>{conspiracies.map((conspiracy) => {
+      <div className={classNames(classes.main, classes.mainRaised)} style={{paddingTop: "40px"}}>
+        <div className={classes.container} >
+          
 
-            return (<div key={conspiracy.id}>
-              <h3 style={{ color: 'black' }}>{conspiracy.title}</h3>
-              <p style={{ color: 'black' }}>{conspiracy.content}</p>
-              <h5 style={{ color: 'black' }}>{conspiracy.created_at}</h5>
-              <h5 style={{ color: 'black' }}>{conspiracy.hashtag.name}</h5>
-              <Conspiracies consp={conspiracy} />{console.log(conspiracies)}
+          <div >
+            <TabPanel onAddConsp={fetchConspiracies} />
+          </div>
+
+          <div>{conspiracies.map((conspiracy) => {
+            if(conspiracy.user_id!==null){
+            return (
+              
+            <div key={conspiracy.id}  style={{ border: '3px solid rgba(0, 0, 0, 0.05)'}}>
+              <Card >
+              <Typography variant="h3" style={{ color: 'black' }}>{conspiracy.title}</Typography> <Typography variant="h5" style={{ color: 'black' }}>By: {conspiracy.user.username}</Typography> 
+              <Typography variant="p" style={{ color: 'black' }}>{conspiracy.content}</Typography>
+              <Typography variant="h5" style={{ color: 'black' }}>{conspiracy.created_at}</Typography>
+              <Typography variant="h5" style={{ color: 'black' }}>#{conspiracy.hashtag.name}</Typography>
+
               {conspiracy.media.map((path) => {
 
                 return (
                   <div className="photo">
-                    <img src={path.path}></img></div>
+                    <img src={path.path}></img></div> 
                 )
-              })}
+              })}</Card>
             </div>);
-          })}</div>
-          
+}else{return (<Card><div key={conspiracy.id}>
+  <Typography variant="h3" style={{ color: 'black' }}>{conspiracy.title}</Typography> <Typography variant="h5" style={{ color: 'black' }}>By: Anonymous</Typography> 
+  <Typography variant="p" style={{ color: 'black' }}>{conspiracy.content}</Typography>
+  <Typography variant="h6" style={{ color: 'black' }}>{conspiracy.created_at}</Typography>
+  <Typography variant="h5" style={{ color: 'black' }}>#{conspiracy.hashtag.name}</Typography>
+
+  {conspiracy.media.map((path) => {
+
+    return (
+      <div className="photo">
+        <img src={path.path}></img></div>
+    )
+  })}
+</div></Card>); }})}</div>
+
           <TeamSection />
           <WorkSection />
         </div>

@@ -55,9 +55,9 @@ function Review(props) {
       <table>
         <tbody>
           <tr>
-            <td>Title:  </td>
+            <td>Title: {title.value}  </td>
           </tr>
-          <tr><td>Conspiracy:   </td></tr>
+          <tr><td>Conspiracy: {conspiracy.value}  </td></tr>
         </tbody>
       </table>
       <br></br>
@@ -189,7 +189,7 @@ useEffect(() => {
                 return 'Enter confirm to post you theory!';
               }
              
-             dispatch({type: "toggle", message:"mmm"});
+             dispatch({type: "toggle"});
             
               return true;
             },
