@@ -90,7 +90,8 @@ export default function NewTask(props) {
     };
 
     if (toHome === true) {
-        return <Redirect to='/profile-page' />
+    
+        return <Redirect to='/SetupWizard-page' />
     }
 
     return (

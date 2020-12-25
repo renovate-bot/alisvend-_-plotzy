@@ -25,6 +25,9 @@ import WorkSection from "./Sections/WorkSection.js";
 import TabPanel from './Sections/TabPanel.js'
 
 import apiClient from './../../api';
+import Comment from "./Sections/Comment.js";
+import Vote from "./Sections/Vote.js";
+import SuggestedUsers from "./Sections/SuggestedUsers";
 
 const dashboardRoutes = [];
 
@@ -34,7 +37,7 @@ export default function LandingPage(props) {
   const classes = useStyles();
   const { ...rest } = props;
   const [conspiracies, setConspiracies] = React.useState([]);
-
+  
 
 
   React.useEffect(() => {
@@ -86,10 +89,12 @@ export default function LandingPage(props) {
           <div >
             <TabPanel onAddConsp={fetchConspiracies} />
           </div>
-
+          <div style={{ color:'black' }}>
+      <SuggestedUsers/></div>
           <div>{conspiracies.map((conspiracy) => {
             if(conspiracy.user_id!==null){
             return (
+              
               
             <div key={conspiracy.id}  style={{ border: '3px solid rgba(0, 0, 0, 0.05)'}}>
               <Card >
@@ -104,7 +109,13 @@ export default function LandingPage(props) {
                   <div className="photo">
                     <img src={path.path}></img></div> 
                 )
-              })}</Card>
+              })}
+              <Vote postID={conspiracy.id}/>
+              <Comment postID={conspiracy.id}/>
+              
+              
+              </Card>
+              
             </div>);
 }else{return (<Card><div key={conspiracy.id}>
   <Typography variant="h3" style={{ color: 'black' }}>{conspiracy.title}</Typography> <Typography variant="h5" style={{ color: 'black' }}>By: Anonymous</Typography> 
@@ -119,12 +130,14 @@ export default function LandingPage(props) {
         <img src={path.path}></img></div>
     )
   })}
-</div></Card>); }})}</div>
+</div>
+<Vote postID={conspiracy.id}/>
+<Comment postID={conspiracy.id}/></Card>); }})} </div>
 
-          <TeamSection />
-          <WorkSection />
+          
         </div>
       </div>
+      
       <Footer />
     </div>
   );

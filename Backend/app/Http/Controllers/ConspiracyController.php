@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Conspiracy;
+use App\Models\User;
 use App\Models\Media;
+use App\Models\Conspiracy;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ConspiracyController extends Controller
@@ -99,4 +100,14 @@ class ConspiracyController extends Controller
         $task = Conspiracy::where('id', $request->get('taskId'));
         $task->delete();
     }
+
+
+
+    public function getUsers()
+    {
+        $user = Auth::id();
+        $users = User::where('id','<>',$user)->get();
+        return $users;
+    }
+
 }

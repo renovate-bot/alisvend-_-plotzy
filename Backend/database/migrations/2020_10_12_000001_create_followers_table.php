@@ -15,7 +15,10 @@ class CreateFollowersTable extends Migration
     {
         Schema::create('followers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->bigInteger('requester_id')->unsigned();
+            $table->bigInteger('requestee_id')->unsigned();
+            $table->foreign('requester_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('requestee_id')->references('id')->on('users')->onDelete('cascade'); 
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

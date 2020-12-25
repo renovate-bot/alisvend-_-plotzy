@@ -126,7 +126,7 @@ export default function FullWidthTabs(props) {
           aria-label="full width tabs example"
         >
           <Tab label="Conspiracy" {...a11yProps(0)} />
-          <Tab label="Bet" {...a11yProps(1)} />
+          
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -208,9 +208,7 @@ export default function FullWidthTabs(props) {
             </form>
           </div>
         </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-          Bet
-        </TabPanel>
+       
       </SwipeableViews>
     </div>
   );

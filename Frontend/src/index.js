@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { Provider } from 'react-redux';
-import store from './globalState/Store';
+
 
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch } from "react-router-dom";
@@ -16,6 +15,7 @@ import ProfilePage from "views/ProfilePage/ProfilePage.js";
 import LoginPage from "views/LoginPage/LoginPage.js";
 
 import { StoreProvider } from "./globalState/Store";
+import SetupWizard from "views/ProfilePage/SetupWizard";
 var hist = createBrowserHistory();
 
 ReactDOM.render(
@@ -23,10 +23,11 @@ ReactDOM.render(
 <StoreProvider>
   <Router history={hist}>
     <Switch>
+    <Route path="/SetupWizard-page" component={SetupWizard} />
       <Route path="/landing-page" component={LandingPage} />
       <Route path="/profile-page" component={ProfilePage} />
       <Route path="/" component={LoginPage} />
-      <Route path="/analytics" component={LoginPage} />
+      
     </Switch>
   </Router>,
   </StoreProvider>,

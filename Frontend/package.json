@@ -36,7 +36,8 @@
     "redux": "^4.0.5",
     "styled-components": "^5.2.1",
     "sweetalert2-react": "^0.8.3",
-    "three": "^0.123.0"
+    "three": "^0.123.0",
+    "universal-react-logger": "^1.0.6"
   },
   "devDependencies": {
     "@babel/cli": "7.10.1",
@@ -54,7 +55,7 @@
     "typescript": "3.9.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "NODE_PATH=./src react-scripts start",
     "build": "react-scripts build && gulp licenses",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
