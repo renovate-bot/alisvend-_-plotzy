@@ -29,13 +29,9 @@ class ConspiracyController extends Controller
               $filename  = $file->getClientOriginalName();
               $extension = $file->getClientOriginalExtension();
               $picture   = date('His').'-'.$filename;
-              //move image to public/img folder
+              
             $file->move(public_path('img'), $picture);
 
-              //$file_namewithExt = $request->file('path')->getClientOriginalName();
-
-            // $file->storeAs('/public', $picture);
-  
               $media = new Media();
               $cid = $conspiracy->id;
               $media->conspiracy_id = $cid;
@@ -48,6 +44,16 @@ class ConspiracyController extends Controller
       
 
     }
+
+
+    public function addHashtag(Request $request){
+
+        $user = Auth::id();
+        User::where('id', $user)
+            ->update(['hashtag' => $request->get('status')]);
+
+    }
+    
     public function addConspiracyAnonymously(Request $request)
     {
         $conspiracy = new Conspiracy();

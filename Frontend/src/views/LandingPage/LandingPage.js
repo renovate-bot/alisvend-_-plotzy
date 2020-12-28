@@ -28,6 +28,8 @@ import apiClient from './../../api';
 import Comment from "./Sections/Comment.js";
 import Vote from "./Sections/Vote.js";
 import SuggestedUsers from "./Sections/SuggestedUsers";
+import MapLocation from "./Sections/MapLocation";
+
 
 const dashboardRoutes = [];
 
@@ -135,9 +137,9 @@ export default function LandingPage(props) {
 <Comment postID={conspiracy.id}/></Card>); }})} </div>
 
           
-        </div>
+     
+        </div> 
       </div>
-      
       <Footer />
     </div>
   );

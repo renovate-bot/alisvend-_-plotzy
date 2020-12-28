@@ -15,6 +15,7 @@ import Drawer from "@material-ui/core/Drawer";
 import Menu from "@material-ui/icons/Menu";
 // core components
 import styles from "assets/jss/material-kit-react/components/headerStyle.js";
+import Search from "./Search";
 
 const useStyles = makeStyles(styles);
 
@@ -64,6 +65,7 @@ export default function Header(props) {
     e.preventDefault();
     window.location.href='/landing-page';
     }} >plotzy</Button>;
+    
   return (
     <AppBar className={appBarClasses}>
       <Toolbar className={classes.container}>
@@ -77,6 +79,7 @@ export default function Header(props) {
             brandComponent
           )}
         </div>
+        <Search/>
         <Hidden smDown implementation="css">
           {rightLinks}
         </Hidden>

@@ -51,13 +51,22 @@ const fetchUsers = () => {
     }
     
 
-
-
+    
   }
+
+  const [text,setText]=React.useState("Follow");
+     const changeText = (text) => {
+      
+        setText(text);
+      } 
+
   return (
 
 <div>   
-{users.map((user)=>{return(<Typography variant="p">{user.username}<Button onClick={() => followUser(user.id)}>Follow</Button><br/></Typography>)})}
+{users.map((user)=>{return(<Typography variant="p">{user.username}
+<Button onClick={() => {followUser(user.id);
+    // changeText("Pending");
+    }}>{text}</Button><br/></Typography>)})}
 
     
 </div>

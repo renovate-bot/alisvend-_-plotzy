@@ -27,3 +27,4 @@ Route::middleware('auth:sanctum')->post('/addConspiracy', [ConspiracyController:
 Route::middleware('auth:sanctum')->get('/conspiracies', [ConspiracyController::class,'displayConspiracies']);
 Route::middleware('auth:sanctum')->get('/users', [ConspiracyController::class,'getUsers']);
 Route::middleware('auth:sanctum')->post('/addFollower', [FollowerController::class,'addFollower']);
+Route::middleware('auth:sanctum')->post('/addHashtag', [ConspiracyController::class,'addHashtag']);
