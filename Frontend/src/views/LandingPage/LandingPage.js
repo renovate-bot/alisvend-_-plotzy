@@ -28,7 +28,12 @@ import apiClient from './../../api';
 import Comment from "./Sections/Comment.js";
 import Vote from "./Sections/Vote.js";
 import SuggestedUsers from "./Sections/SuggestedUsers";
-import MapLocation from "./Sections/MapLocation";
+import SearchableMap from "./Sections/ViewMap.js";
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+
 
 
 const dashboardRoutes = [];
@@ -39,13 +44,23 @@ export default function LandingPage(props) {
   const classes = useStyles();
   const { ...rest } = props;
   const [conspiracies, setConspiracies] = React.useState([]);
-  
-
+  const [long,setLong]=React.useState(null);
+  const [lat,setLat]=React.useState(null);
+  const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
     fetchConspiracies();
 
   }, []);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+
+  };
 
 
   const fetchConspiracies = () => {
@@ -56,7 +71,7 @@ export default function LandingPage(props) {
         .then((response) => {
           setConspiracies([]);
           setConspiracies(response.data);
-
+        
         })
         .catch((error) => console.error(error))
 
@@ -88,12 +103,30 @@ export default function LandingPage(props) {
         <div className={classes.container} >
           
 
+        <Dialog fullWidth={true} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+    
+        <DialogContent>
+      
+          <SearchableMap longitude={long} latitude={lat} />
+       
+
+
+        </DialogContent>   
+        <DialogActions>
+          <Button onClick={handleClose}>Close</Button>
+
+        </DialogActions>
+      </Dialog>
+
+
           <div >
             <TabPanel onAddConsp={fetchConspiracies} />
           </div>
           <div style={{ color:'black' }}>
       <SuggestedUsers/></div>
+      
           <div>{conspiracies.map((conspiracy) => {
+
             if(conspiracy.user_id!==null){
             return (
               
@@ -104,7 +137,7 @@ export default function LandingPage(props) {
               <Typography variant="p" style={{ color: 'black' }}>{conspiracy.content}</Typography>
               <Typography variant="h5" style={{ color: 'black' }}>{conspiracy.created_at}</Typography>
               <Typography variant="h5" style={{ color: 'black' }}>#{conspiracy.hashtag.name}</Typography>
-
+              <Button onClick={()=>{setLong(conspiracy.long);setLat(conspiracy.lat);handleClickOpen()}}>Location</Button>
               {conspiracy.media.map((path) => {
 
                 return (

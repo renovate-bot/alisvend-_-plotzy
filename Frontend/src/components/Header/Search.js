@@ -12,19 +12,20 @@ export default function Search (props){
     const [searchTerm,setSearchTerm]=React.useState('');
 
 
-    React.useEffect(()=>{
-       getNames();
-    },[])
+    // React.useEffect(()=>{
+    //    getNames();
+    // },[])
     
 
-    const getNames=()=>{
+    const getNames=(val)=>{
 
-        
+        if(val===""){setNames([]);}else{
             if (sessionStorage.getItem("loggedIn")) {
         
               apiClient
-                .get("/api/users")
+                .post("/api/users",{val:val})
                 .then((response) => {
+                    
                   setNames([]);
                   setNames(response.data);
         
@@ -32,12 +33,12 @@ export default function Search (props){
                 .catch((error) => console.error(error))
         
             
-          };
+          };}
 
     }
 
 const editSearchTerm=(e)=>{
-
+getNames(e.target.value);
 
     setSearchTerm(e.target.value);
 }

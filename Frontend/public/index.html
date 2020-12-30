@@ -31,7 +31,14 @@
     />
     
     <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
-    
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css" rel="stylesheet" />
+<style>
+	body { margin: 0; padding: 0; }
+	#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -46,7 +53,33 @@
   <body>
     <noscript> You need to enable JavaScript to run this app. </noscript>
     <div id="root"></div>
-  
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
+<link
+rel="stylesheet"
+href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css"
+type="text/css"
+/>
+
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+      <!-- <div id="map"></div> -->
+    </div>
+
+    
+
+    <!-- <div id='map' style='width: 400px; height: 300px;'></div>
+    <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYWxpc3ZlbmQiLCJhIjoiY2tqYTVwaG85MjRweTJxbnYyYjd6aW45bCJ9.Q2QH2uqqX80RuObEhLvttQ';
+    var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+    center: [-74.5, 40], // starting position [lng, lat]
+    zoom: 9 // starting zoom
+    });
+    </script> -->
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

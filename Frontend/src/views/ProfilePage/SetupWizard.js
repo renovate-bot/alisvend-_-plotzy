@@ -1,8 +1,9 @@
-import { Typography } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 import React from "react";
 import apiClient from "../../api";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import { Next } from "react-bootstrap/esm/PageItem";
 
 
 
@@ -21,14 +22,15 @@ export default function SetupWizard(props){
         }
     }, []);
 
-    const setHashtag = (name)=>{
+    const setHashtag = (id)=>{
 
         if (sessionStorage.getItem("loggedIn")) {
       
        
             apiClient
                 .post("/api/addHashtag",{
-                    name:name
+                    user_id:sessionStorage.getItem('userId'),
+                    hashtag_id:id
     
                 }
     
@@ -41,13 +43,15 @@ export default function SetupWizard(props){
         }
 
     }
+
+  
     const hashtagsList = hashtags.map((hashtag) =>
         <FormControlLabel
         value="end"
         control={<Checkbox color="primary" />}
         label={hashtag.name}
         labelPlacement="end"
-        value={hashtag.id} key={hashtag.id} onClick={()=>{setHashtag(hashtag.name)}}
+        value={hashtag.id} key={hashtag.id} onClick={()=>{setHashtag(hashtag.id)}}
       />
     );
 
@@ -60,7 +64,10 @@ export default function SetupWizard(props){
 
 <div>{hashtagsList}</div>
 </div>
-
+<Button  onClick={(e) => {
+    e.preventDefault();
+    window.location.href='/landing-page';
+    }} >Next</Button>
 </div>
 
 

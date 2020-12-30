@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Media;
 use App\Models\Conspiracy;
+use App\Models\user_hashtag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,6 +18,8 @@ class ConspiracyController extends Controller
         $conspiracy->title = $request->title;
         $conspiracy->content = $request->content;
         $conspiracy->hashtag_id = $request->hashtag_id;
+        $conspiracy->long = $request->long;
+        $conspiracy->lat = $request->lat;
         $conspiracy->save();
        
         $request->validate([
@@ -46,13 +49,6 @@ class ConspiracyController extends Controller
     }
 
 
-    public function addHashtag(Request $request){
-
-        $user = Auth::id();
-        User::where('id', $user)
-            ->update(['hashtag' => $request->get('status')]);
-
-    }
     
     public function addConspiracyAnonymously(Request $request)
     {
@@ -67,7 +63,7 @@ class ConspiracyController extends Controller
     {
 
         $user = Auth::id();
-        $conspiracies = Conspiracy::where('user_id', $user)->where('hashtag_id', $request->hashtag_id)->latest()->simplePaginate(6);
+        $conspiracies = Conspiracy::where('user_id', $user)->where('hashtag_id', $request->hashtag_id);
         return $conspiracies;
     }
 
@@ -76,14 +72,19 @@ class ConspiracyController extends Controller
 
         $user = Auth::id();
         $conspiracies = Conspiracy::where('user_id', $user)->with()->latest()->simplePaginate(6);
+        
         return $conspiracies;
     }
 
-    public function displayConspiracies()
+    public function displayConspiracies( Request $request)
     {
+        $user = Auth::id();
+         $hashtagIds=user_hashtag::where('user_id','=',$user)->get('hashtag_id');
+        
+         $conspiracies = Conspiracy::with('hashtag')->with('media')->with('user')->whereIn('hashtag_id',$hashtagIds)->get();
+         return $conspiracies;
+       
 
-        $conspiracies = Conspiracy::with('hashtag')->with('media')->with('user')->get();
-        return $conspiracies;
     }
 
 
@@ -109,10 +110,10 @@ class ConspiracyController extends Controller
 
 
 
-    public function getUsers()
+    public function getUsers(Request $request)
     {
         $user = Auth::id();
-        $users = User::where('id','<>',$user)->get();
+        $users = User::where('id','<>',$user)->whereRaw("username LIKE '%$request->val%'")->get();
         return $users;
     }
 

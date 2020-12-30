@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-use App\Models\Hashtag;
 use App\Models\Media;
+use App\Models\Hashtag;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Conspiracy extends Model
 {
@@ -26,6 +27,13 @@ class Conspiracy extends Model
 
         return $this->hasMany(Media::class);
     }
+
+    public function user_hashtag(){
+
+        return $this->belongsTo(Conspiracy::class);
+ 
+     }
+ 
 
 
 }

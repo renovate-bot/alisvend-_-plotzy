@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HashtagController;
 use App\Http\Controllers\ConspiracyController;
 use App\Http\Controllers\FollowerController;
+use App\Http\Controllers\UserHashtagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +28,4 @@ Route::middleware('auth:sanctum')->post('/addConspiracy', [ConspiracyController:
 Route::middleware('auth:sanctum')->get('/conspiracies', [ConspiracyController::class,'displayConspiracies']);
 Route::middleware('auth:sanctum')->get('/users', [ConspiracyController::class,'getUsers']);
 Route::middleware('auth:sanctum')->post('/addFollower', [FollowerController::class,'addFollower']);
-Route::middleware('auth:sanctum')->post('/addHashtag', [ConspiracyController::class,'addHashtag']);
+Route::middleware('auth:sanctum')->post('/addHashtag', [UserHashtagController::class,'addHashtag']);
