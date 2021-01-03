@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './login.css';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -97,7 +97,7 @@ export default function NewTask(props) {
     return (
         <div>
 
-            <Button onClick={handleClickOpen} simple color="primary" size="lg" className="plus radius" style={{ marginRight: "1em", float: "right" }}>
+            <Button onClick={handleClickOpen} simple color="primary" size="lg" className="plus radius create-button" >
                 Create Account
             </Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

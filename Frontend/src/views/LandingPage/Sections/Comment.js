@@ -76,7 +76,7 @@ export default function Comment(props) {
 
 {commentsList.map((comment)=>{return(
     <>
-<p>{comment.comment}</p>
+<p>{comment.username}: {comment.comment}</p>
 <CommentVote  sendLikes={(e)=>{likes.push(e)}} commentID={comment.id}/>
 </>
 )})}

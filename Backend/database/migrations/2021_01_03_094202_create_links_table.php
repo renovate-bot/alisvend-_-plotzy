@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateConspiraciesTable extends Migration
+class CreateLinksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,11 @@ class CreateConspiraciesTable extends Migration
      */
     public function up()
     {
-        Schema::create('conspiracies', function (Blueprint $table) {
+        Schema::create('links', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
             $table->text('content');
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
-            $table->foreignId('hashtag_id')->constrained()->onDelete('cascade');
-            $table->string('long')->nullable();
-            $table->string('lat')->nullable();
             $table->timestamps();
-            
         });
     }
 
@@ -33,6 +28,6 @@ class CreateConspiraciesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('conspiracies');
+        Schema::dropIfExists('links');
     }
 }

@@ -11,6 +11,29 @@ use Illuminate\Support\Facades\Auth;
 
 class ConspiracyController extends Controller
 {
+    
+
+    
+    public function addConspiracyAnonymously(Request $request)
+    {
+        $conspiracy = new Conspiracy();
+
+        $conspiracy->title = $request->title;
+        $conspiracy->content = $request->content;
+        $conspiracy->hashtag_id = $request->hashtag_id;
+        $conspiracy->save();
+    }
+
+
+
+
+    public function addPhone(Request $request)
+    {
+        $user = Auth::id();
+        User::where('id', $user)
+            ->update(['phoneNumber' => $request->phoneNumber]);
+    }
+
     public function addConspiracy(Request $request)
     {
         $conspiracy = new Conspiracy();
@@ -48,17 +71,32 @@ class ConspiracyController extends Controller
 
     }
 
-
     
-    public function addConspiracyAnonymously(Request $request)
+    public function addProfilePicture(Request $request)
     {
-        $conspiracy = new Conspiracy();
+        $request->validate([
+            'profile_pic' => 'nullable|mimes:jpeg,jpg,png',
+        ]);
 
-        $conspiracy->title = $request->title;
-        $conspiracy->content = $request->content;
-        $conspiracy->hashtag_id = $request->hashtag_id;
-        $conspiracy->save();
+        if ($request->hasFile('profile_pic'))
+        {
+              $file      = $request->file('profile_pic');
+              $filename  = $file->getClientOriginalName();
+              $extension = $file->getClientOriginalExtension();
+              $picture   = date('His').'-'.$filename;
+              
+            $file->move(public_path('img'), $picture);
+            $user = Auth::id();
+            
+              User::where('id', $user)
+                ->update(['profile_pic' => $request->profile_pic]);
+        }
     }
+
+
+
+
+
     public function displayConspiraciesByHashtag(Request $request)
     {
 

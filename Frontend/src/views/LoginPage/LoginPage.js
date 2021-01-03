@@ -7,7 +7,8 @@ import Icon from "@material-ui/core/Icon";
 import Email from "@material-ui/icons/Email";
 import LoginBot from "./LoginBot";
 // core components
-
+import './login.css';
+import Logo from './logo.png';
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
@@ -93,8 +94,7 @@ export default function LoginPage(props) {
               <Card className={classes[cardAnimaton]}>
                 <form className={classes.form} onSubmit={handleSubmit}>
                   <CardHeader color="primary" className={classes.cardHeader}>
-                    <h4>Login</h4>
-                    
+                  <img src={Logo} className="logo" alt=""></img>
                   </CardHeader>
                  
                   <CardBody>

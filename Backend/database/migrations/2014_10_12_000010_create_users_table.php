@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->enum('gender', ['female', 'male','other']);
             $table->rememberToken();
             $table->timestamps();
+            $table->unsignedInteger('phoneNumber')->default(0);
         });
     }
 

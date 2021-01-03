@@ -89,7 +89,7 @@ export default function FullWidthTabs(props) {
   const [open, setOpen] = React.useState(false);
   const [longitude, setLongitude] = React.useState(null);
   const [latitude, setLatitude] = React.useState(null);
-
+  const [link, setLink] = useState('');
 
 
   const handleImage = (file) => {
@@ -105,14 +105,17 @@ export default function FullWidthTabs(props) {
       fd.append('content', conspiracy);
       fd.append('hashtag_id', hashtag);
       fd.append('path', image);
-      fd.append('long',longitude);
-      fd.append('lat',latitude);
+      fd.append('long', longitude);
+      fd.append('lat', latitude);
+
       apiClient
         .post("/api/addConspiracy",
 
           fd
 
-        ).then(() => { props.onAddConsp() })
+        )
+
+        .then(() => { props.onAddConsp() })
         .catch((error) => console.error(error))
 
       e.target.reset();
@@ -147,6 +150,33 @@ export default function FullWidthTabs(props) {
     // console.log(this.state.latitude)
   }
 
+  const handleSubmitLink = (e) => {
+
+    if (sessionStorage.getItem("loggedIn")) {
+      e.preventDefault();
+      const fd = new FormData();
+
+      fd.append('content', link);
+
+
+      apiClient
+        .post("/api/addLink",
+
+          fd
+
+        )
+
+        .then(() => { props.onAddLink() })
+        .catch((error) => console.error(error))
+
+      e.target.reset();
+
+    }
+    setLink(props.links);
+
+
+  }
+
 
   return (
 
@@ -154,14 +184,14 @@ export default function FullWidthTabs(props) {
     <div className={classes.root}>
 
       <Dialog fullWidth={true} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-      
+
         <DialogContent>
-      
+
           <SearchableMap longitude={onChangelong} latitude={onChangelat} />
-       
 
 
-        </DialogContent>   
+
+        </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Close</Button>
 
@@ -179,7 +209,7 @@ export default function FullWidthTabs(props) {
           aria-label="full width tabs example"
         >
           <Tab label="Conspiracy" {...a11yProps(0)} />
-
+          <Tab label="Link" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -262,7 +292,24 @@ export default function FullWidthTabs(props) {
             </form>
           </div>
         </TabPanel>
+        <TabPanel value={value} index={1} dir={theme.direction}>
+          <form onSubmit={handleSubmitLink}>
+            <TextField
+              style={{ marginTop: "20px" }}
+              id="link"
+              label="Paste your link here to share"
+              multiline
+              rows={6}
+              defaultValue=""
+              variant="outlined"
+              fullWidth
+              onChange={e => setLink(e.target.value)}
+            />
 
+
+            <Button type="submit">Post</Button>
+          </form>
+        </TabPanel>
       </SwipeableViews>
     </div>
   );

@@ -4,23 +4,23 @@ import { Typography } from '@material-ui/core';
 import { Button, TextField } from "@material-ui/core";
 
 
-export default function SuggestedUsers(props){
+export default function SuggestedUsers(props) {
 
-const [users,setUsers]=React.useState([]);
+  const [users, setUsers] = React.useState([]);
 
 
-React.useEffect(() => {
+  React.useEffect(() => {
     fetchUsers();
 
   }, []);
 
 
 
-const fetchUsers = () => {
+  const fetchUsers = () => {
     if (sessionStorage.getItem("loggedIn")) {
 
       apiClient
-        .get("/api/users")
+        .post("/api/users")
         .then((response) => {
           setUsers([]);
           setUsers(response.data);
@@ -31,45 +31,49 @@ const fetchUsers = () => {
     }
   };
 
-  const followUser = (uid)=>{
+  const followUser = (uid) => {
     if (sessionStorage.getItem("loggedIn")) {
-      
-       
-        apiClient
-            .post("/api/addFollower",{
-                requester_id:sessionStorage.getItem('userId'),
-                requestee_id:uid      
 
-            }
 
-                
+      apiClient
+        .post("/api/addFollower", {
+          requester_id: sessionStorage.getItem('userId'),
+          requestee_id: uid
 
-            )
+        }
 
-        
+
+
+        )
+
+
 
     }
-    
 
-    
+
+
   }
 
-  const [text,setText]=React.useState("Follow");
-     const changeText = (text) => {
-      
-        setText(text);
-      } 
+  const [text, setText] = React.useState("Follow");
+  const changeText = (text) => {
+
+    setText(text);
+  }
 
   return (
 
-<div>   
-{users.map((user)=>{return(<Typography variant="p">{user.username}
-<Button onClick={() => {followUser(user.id);
-    // changeText("Pending");
-    }}>{text}</Button><br/></Typography>)})}
+    <div style={{ marginLeft: '10px' }}>
+      <h4 style={{ backgroundColor: 'red' }}>Suggested Users</h4>
+      {users.map((user) => {
+        return (<Typography variant="p">{user.username}
+          <Button onClick={() => {
+            followUser(user.id);
+            // changeText("Pending");
+          }}>{text}</Button><br /></Typography>)
+      })}
 
-    
-</div>
+
+    </div>
 
 
 

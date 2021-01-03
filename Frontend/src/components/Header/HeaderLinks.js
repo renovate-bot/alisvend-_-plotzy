@@ -70,22 +70,7 @@ export default function HeaderLinks(props) {
           ]}
         />
         </div>
-        <div style={{"padding":"10px","float":"left"}}>
-         <CustomDropdown
-          noLiPadding
-          buttonText=""
-          buttonProps={{
-            className: classes.navLink,
-            color: "transparent"
-          }}
-          buttonIcon={Apps}
-          dropdownList={[
-            ,
-           
         
-            
-          ]}
-        /></div>
         </div>
     //   </ListItem>
     //   <ListItem className={classes.listItem}>
