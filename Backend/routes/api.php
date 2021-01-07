@@ -33,4 +33,10 @@ Route::middleware('auth:sanctum')->post('/addHashtag', [UserHashtagController::c
 Route::middleware('auth:sanctum')->post('/addPhone', [ConspiracyController::class,'addPhone']);
 Route::middleware('auth:sanctum')->post('/addProfilePicture', [ConspiracyController::class,'addProfilePicture']);
 Route::middleware('auth:sanctum')->get('/links', [LinkController::class,'displayLinks']);
-Route::middleware('auth:sanctum')->post('/addLink', [LinkController::class,'addLink']);
+Route::middleware('auth:sanctum')->post('/addLink', [LinkController::class,'addLink']); 
+Route::middleware('auth:sanctum')->get('/conspiraciesForUser', [ConspiracyController::class,'displayConspiraciesForUser']);
+Route::middleware('auth:sanctum')->get('/userInfo', [ConspiracyController::class,'getUserInfo']);
+Route::middleware('auth:sanctum')->post('/editName', [ConspiracyController::class,'editName']); 
+Route::middleware('auth:sanctum')->get('/checkedHashtags', [UserHashtagController::class,'getCheckedHashtags']);
+Route::middleware('auth:sanctum')->post('/editHashtag', [UserHashtagController::class,'updateHashtag']); 
+Route::middleware('auth:sanctum')->get('/getFollowers', [FollowerController::class,'getFollowers']);

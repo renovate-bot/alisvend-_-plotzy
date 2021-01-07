@@ -22,6 +22,8 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 import Box from '@material-ui/core/Box';
 import StepProgressBar from 'react-step-progress';
 import 'react-step-progress/dist/index.css';
+import CheckboxGroup from 'react-checkbox-group'
+
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -77,20 +79,50 @@ export default function SetupWizard() {
         setValue(newValue);
     };
 
-    let [hashtags, setHashtags] = useState([{ 'id': 1, 'name': 'Politics' }, { 'id': 2, 'name': 'Health' }, { 'id': 3, 'name': 'Social' }, { 'id': 4, 'name': 'Series' }, { 'id': 5, 'name': 'Sports' }, { 'id': 6, 'name': 'Technology' }]);
+    let [hashtags, setHashtags] = useState([{ 'id': 1, 'name': 'Politics',checked:false }, { 'id': 2, 'name': 'Health',checked:false }, { 'id': 3, 'name': 'Social',checked:false }, { 'id': 4, 'name': 'Series',checked:false }, { 'id': 5, 'name': 'Sports',checked:false }, { 'id': 6, 'name': 'Technology',checked:false }]);
+    let hashtags1=[];
+    const [renderDump,setRenderDump]=useState(null);
 
-    useEffect(() => {
-        if (sessionStorage.getItem("loggedIn")) {
-            apiClient.get('/api/hashtags')
-                .then(response => {
-                    setHashtags(response.data)
-                    hashtags = response.data;
+   const handleChangeHashtags = (e)=>{
+     let tempHashtags=hashtags;
+     setHashtags([]);
+     
+     tempHashtags.forEach(hashtag => {
+        if(hashtag.id==e.target.value){
+           
+            //console.log(hashtag.checked,"awwal if");
+         if(hashtag.checked==false){
+             
+            hashtag.checked=true;
+            setHashtags(tempHashtags);
+            setRenderDump(hashtag.checked+e.target.value);
 
-
-                })
-                .catch(error => console.error(error))
-
+            //console.log(hashtag.checked,"tene if");
+         }else{hashtag.checked=false;
+            setHashtags(tempHashtags);
+            setRenderDump(hashtag.checked+e.target.value);
+        }   
         }
+
+    }
+    
+    );
+    
+
+
+    }
+    useEffect(() => {
+        // if (sessionStorage.getItem("loggedIn")) {
+        //     apiClient.get('/api/hashtags')
+        //         .then(response => {
+        //             setHashtags(response.data)
+        //             hashtags = response.data;
+
+
+        //         })
+        //         .catch(error => console.error(error))
+
+        // }
     }, []);
 
     const setHashtag = (id) => {
@@ -100,8 +132,8 @@ export default function SetupWizard() {
 
             apiClient
                 .post("/api/addHashtag", {
-                    user_id: sessionStorage.getItem('userId'),
-                    hashtag_id: id
+                    
+                    hashtags: hashtags
 
                 }
                 )
@@ -143,18 +175,6 @@ export default function SetupWizard() {
 
     }
 
-    const hashtagsList = hashtags.map((hashtag) => {
-        return (
-            <FormControlLabel
-                value="end"
-                control={<Checkbox color="primary" />}
-                label={hashtag.name}
-                labelPlacement="end"
-                value={hashtag.id} key={hashtag.id} onClick={() => { setHashtag(hashtag.id) }}
-            />)
-    }
-    );
-
 
     const step1Content = <><br />Enter your phone number:
         <form>
@@ -182,7 +202,18 @@ export default function SetupWizard() {
         <Typography variant="h4" style={{ color: 'black', textAlign: 'center' }}><br />Choose Your favorite topics to follow!</Typography>
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
 
-            <div>{hashtagsList.length > 0 ? hashtagsList : <></>}</div>
+            <div>{ hashtags.map((hashtag) => {
+            
+        return (
+            <FormControlLabel
+                value="end"
+                control={<Checkbox color="primary" key={hashtag.id} />}
+                label={hashtag.name}
+                labelPlacement="end"
+                value={hashtag.id} key={hashtag.id} onChange={(e) => { handleChangeHashtags(e) }}
+            />)
+    }
+    ) }</div>
         </div></>;
 
 
@@ -203,10 +234,11 @@ export default function SetupWizard() {
     </>;
 
     function onFormSubmit() {
+        setHashtag();
         window.location.href = '/landing-page';
     }
     return (
-      
+     
         <div className={classes.root}>
             <StepProgressBar
                 startingStep={0}

@@ -11,11 +11,29 @@ class UserHashtagController extends Controller
 {
     
     public function addHashtag(Request $request){
+        user_hashtag::where('user_id', Auth::id())
+            
+        ->delete();
 
-        
+        foreach ($request->hashtags as $value) {
+            if($value["checked"]==true){
+       
         $userhashtag = new user_hashtag();
         $userhashtag->user_id = Auth::id();
-        $userhashtag->hashtag_id = $request->hashtag_id;
+        $userhashtag->hashtag_id = $value["id"];
         $userhashtag->save();
-    }
+    }}
+}
+
+
+public function getCheckedHashtags(){
+
+return user_hashtag::where('user_id',Auth::id())->get();
+
+
+}
+
+
+
+
 }

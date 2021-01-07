@@ -126,9 +126,13 @@ class ConspiracyController extends Controller
     }
 
 
-    public function displayConspiracyByID(Request $request)
+    public function displayConspiraciesForUser(Request $request)
     {
-        //display a single conspiracy
+        $user = Auth::id();
+         
+        
+         $conspiracies = Conspiracy::with('hashtag')->with('media')->with('user')->where('user_id',$user)->get();
+         return $conspiracies;
 
     }
 
@@ -137,6 +141,13 @@ class ConspiracyController extends Controller
         Conspiracy::where('id', $request->get('id'))
             ->where('user_id', Auth::id())
             ->update(['status' => $request->get('status')]);
+    }
+
+    public function editName(Request $request)
+    {
+        User::where('id', Auth::id())
+            
+            ->update(['username' => $request->get('username')]);
     }
 
 
@@ -154,5 +165,13 @@ class ConspiracyController extends Controller
         $users = User::where('id','<>',$user)->whereRaw("username LIKE '%$request->val%'")->get();
         return $users;
     }
+
+    public function getUserInfo(Request $request)
+    {
+        $user = Auth::id();
+        $users = User::where('id',$user)->get();
+        return $users;
+    }
+
 
 }

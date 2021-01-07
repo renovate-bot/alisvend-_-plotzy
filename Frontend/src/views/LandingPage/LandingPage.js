@@ -16,7 +16,7 @@ import HeaderLinks from "components/Header/HeaderLinks.js";
 import Parallax from "components/Parallax/Parallax.js";
 import { Typography } from '@material-ui/core';
 import styles from "assets/jss/material-kit-react/views/landingPage.js";
-import { Card } from '@material-ui/core';
+
 // Sections for this page
 
 import TeamSection from "./Sections/TeamSection.js";
@@ -36,12 +36,30 @@ import DialogContent from '@material-ui/core/DialogContent';
 import moment from 'moment';
 import { ReactTinyLink } from 'react-tiny-link';
 
+
+
+import clsx from 'clsx';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Collapse from '@material-ui/core/Collapse';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+
+import { red } from '@material-ui/core/colors';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+
 const dashboardRoutes = [];
 
 const useStyles = makeStyles(styles);
 
 export default function LandingPage(props) {
-  const classes = useStyles();
+  const classes =  useStyles()
   const { ...rest } = props;
   const [conspiracies, setConspiracies] = React.useState([]);
   const [long, setLong] = React.useState(null);
@@ -95,8 +113,7 @@ export default function LandingPage(props) {
     }
   };
 
-
-
+  
   return (
     <div>
       <Header
@@ -161,7 +178,7 @@ export default function LandingPage(props) {
 
                   <div key={conspiracy.id} style={{ border: '6px solid rgba(0, 0, 0, 0.05)' }}>
                     <Card >
-                      <Typography variant="h3" style={{ color: 'black' }}>{conspiracy.title}</Typography> <Typography variant="h5" style={{ color: 'black' }}>By: {conspiracy.user.username}</Typography>
+                      {/* <Typography variant="h3" style={{ color: 'black' }}>{conspiracy.title}</Typography> <Typography variant="h5" style={{ color: 'black' }}>By: {conspiracy.user.username}</Typography>
                       <Typography variant="p" style={{ color: 'black' }}>{conspiracy.content}</Typography>
                       <Typography variant="h5" style={{ color: 'black' }}>{moment(conspiracy.created_at).format("LLL")}</Typography>
                       <Typography variant="h5" style={{ color: 'black' }}>#{conspiracy.hashtag.name}</Typography>
@@ -174,29 +191,91 @@ export default function LandingPage(props) {
                         )
                       })}
                       <Vote postID={conspiracy.id} />
-                      <Comment postID={conspiracy.id} />
+                      <Comment postID={conspiracy.id} /> */}
+                       <Card className={classes.root1}>
+      <CardHeader
+        avatar={
+          <Avatar aria-label="recipe" className={classes.avatar1}>
+            R
+          </Avatar>
+        }
+        action={
+          <IconButton aria-label="settings">
+            <MoreVertIcon />
+          </IconButton>
+        }
+        title={conspiracy.title}
+        subheader={moment(conspiracy.created_at).format("LLL")}
+      /> By: <Typography> {conspiracy.user.username}</Typography>
+      {conspiracy.media.map((path) => {
+
+return (<>
+  <div className="photo">
+    <img src={path.path}></img></div>
+
+      <CardMedia
+        className={classes.media1}
+        image={path.path}
+        title="Paella dish"
+      /></>)
+    })}
+      <CardContent>
+        <Typography variant="body2" color="textSecondary" component="p">{conspiracy.content}
+        </Typography>
+        <Typography variant="h5" style={{ color: 'black' }}>#{conspiracy.hashtag.name}</Typography>
+                      <Button onClick={() => { setLong(conspiracy.long); setLat(conspiracy.lat); handleClickOpen() }}>Location</Button>
+      </CardContent>
+      <CardActions disableSpacing>
+        <IconButton aria-label="add to favorites">
+        <Vote postID={conspiracy.id} />
+        </IconButton>
+       
+      </CardActions>
+      
+      <Comment postID={conspiracy.id} /> 
+    </Card>
 
 
                     </Card>
 
                   </div>);
               } else {
-                return (<Card><div key={conspiracy.id} style={{ border: '6px solid rgba(0, 0, 0, 0.05)' }}>
-                  <Typography variant="h3" style={{ color: 'black' }}>{conspiracy.title}</Typography> <Typography variant="h5" style={{ color: 'black' }}>By: Anonymous</Typography>
-                  <Typography variant="p" style={{ color: 'black' }}>{conspiracy.content}</Typography>
-                  <Typography variant="h6" style={{ color: 'black' }}>{moment(conspiracy.created_at).format("LLL")}</Typography>
-                  <Typography variant="h5" style={{ color: 'black' }}>#{conspiracy.hashtag.name}</Typography>
+                return (<Card>
+<CardHeader
+        avatar={
+          <Avatar aria-label="recipe" className={classes.avatar}>
+            R
+          </Avatar>
+        }
+        action={
+          <IconButton aria-label="settings">
+            <MoreVertIcon />
+          </IconButton>
+        }
+        title={conspiracy.title}
+        subheader={moment(conspiracy.created_at).format("LLL")}
+      /> By Anonymous
+      <CardMedia
+        className={classes.media}
+        image="/static/images/cards/paella.jpg"
+        title="Paella dish"
+      />
+      <CardContent>
+        <Typography variant="body2" color="textSecondary" component="p">{conspiracy.content}
+        </Typography>
+        <Typography variant="h5" style={{ color: 'black' }}>#{conspiracy.hashtag.name}</Typography>
+                      
+      </CardContent>
+      <CardActions disableSpacing>
+        <IconButton aria-label="add to favorites">
+        <Vote postID={conspiracy.id} />
+        </IconButton>
+        
+      </CardActions>
+      
+      <Comment postID={conspiracy.id} /> 
 
-                  {conspiracy.media.map((path) => {
-
-                    return (
-                      <div className="photo">
-                        <img src={path.path}></img></div>
-                    )
-                  })}
-                </div>
-                  <Vote postID={conspiracy.id} />
-                  <Comment postID={conspiracy.id} /></Card>);
+                </Card>);
               }
             })} </div>
 

@@ -17,8 +17,9 @@ class FollowerController extends Controller
 
     }
 
-    public function displayFollowers(){
-
+    public function getFollowers(){
+        $followers = Follower::get();
+        return $followers;
 
     }
 

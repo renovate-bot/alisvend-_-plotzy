@@ -32,7 +32,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
+        <Box p={3} style={{backgroundImage:"/src/assets/img/bj8.jpg"}}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -246,13 +246,14 @@ export default function FullWidthTabs(props) {
                     <Hashtags onChangeHashtagID={handleChangeHashtagID} />
                   </FormControl>
                 </div>
-                <div style={{ width: "15%", display: "inline-flex", justifyContent: "center", alignItems: "center" }}>
+                <div style={{ width: "15%", display: "inline-flex", justifyContent: "center", alignItems: "center"}}>
                   <Button
                     onClick={handleClickOpen}
                     variant=""
                     color="primary"
                     className={classes.button}
                     startIcon={<RoomIcon />}
+                    style = {{left:"20px"}}
                   >
                     Location
                 </Button>
@@ -278,12 +279,13 @@ export default function FullWidthTabs(props) {
 
 
               </div>
-              <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "flex-end" }}>
+              <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "flex-end", top: "20px" }}>
                 <Button
                   variant="contained"
                   color="secondary"
                   className={classes.button}
                   type="submit"
+                  style = {{top:"20px"}}
                 >
                   Post
                 </Button >
