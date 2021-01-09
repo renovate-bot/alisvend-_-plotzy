@@ -5,7 +5,7 @@ import apiClient from "../../api";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Next } from "react-bootstrap/esm/PageItem";
-
+import './setup.css'
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -176,8 +176,9 @@ export default function SetupWizard() {
     }
 
 
-    const step1Content = <><br />Enter your phone number:
-        <form>
+    const step1Content = <><br />
+    <div style={{fontWeight:'bold',marginTop:'20px'}}>Enter your phone number:</div>
+        <form className="formCustom">
             <CustomInput
                 labelText="Phone Number..."
                 id="phone"
@@ -217,8 +218,8 @@ export default function SetupWizard() {
         </div></>;
 
 
-    const step3Content = <> <br /> Upload your profile Picture:
-        <form onSubmit={handleSubmitPic}>
+    const step3Content = <> <br /> <div style={{fontWeight:'bold'}}>Upload your profile Picture:</div>
+        <form onSubmit={handleSubmitPic} className="formCustom">
             <input
 
                 accept="image/*"

@@ -17,7 +17,7 @@ import HeaderLinks from "components/Header/HeaderLinks.js";
 import NavPills from "components/NavPills/NavPills.js";
 import Parallax from "components/Parallax/Parallax.js";
 
-import profile from "assets/img/faces/christian.jpg";
+import profile from "assets/img/faces/marc.jpg";
 
 import studio1 from "assets/img/examples/studio-1.jpg";
 import studio2 from "assets/img/examples/studio-2.jpg";
@@ -33,7 +33,7 @@ import work5 from "assets/img/examples/clem-onojegaw.jpg";
 import styles from "assets/jss/material-kit-react/views/profilePage.js";
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
-import {  useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -48,9 +48,18 @@ import 'react-edit-text/dist/index.css';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Collapse from '@material-ui/core/Collapse';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
 
 
 import apiClient from "../../api";
+import { Col, Row } from "react-bootstrap";
 
 
 function TabPanel(props) {
@@ -108,22 +117,22 @@ export default function ProfilePage(props) {
 
 
 
-  
+
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
-  const [conspiracies,setConspiracies]=React.useState([]);
+  const [conspiracies, setConspiracies] = React.useState([]);
   const [long, setLong] = React.useState(null);
   const [lat, setLat] = React.useState(null);
   const [open, setOpen] = React.useState(false);
   const [user, setUser] = React.useState([]);
-  let [hashtags, setHashtags] = React.useState([{ id: 1, name: 'Politics',checked:'false' }, { id: 2, name: 'Health',checked:'true' }, { id: 3, name: 'Social',checked:'true' }, { id: 4, name: 'Series',checked:'false' }, { id: 5, name: 'Sports',checked:'false' }, { id: 6, name: 'Technology',checked:'false' }]);
-  const [checkedHashtags,setCheckedHashtags]=React.useState([]);
-  const [checkedOne,setcheckedOne]=React.useState(false);
-  const [checkedTwo,setcheckedTwo]=React.useState(false);
-  const [checkedThree,setcheckedThree]=React.useState(false);
-  const [checkedFour,setcheckedFour]=React.useState(false);
-  const [checkedFive,setcheckedFive]=React.useState(false);
-  const [checkedSix,setcheckedSix]=React.useState(false);
+  let [hashtags, setHashtags] = React.useState([{ id: 1, name: 'Politics', checked: 'false' }, { id: 2, name: 'Health', checked: 'true' }, { id: 3, name: 'Social', checked: 'true' }, { id: 4, name: 'Series', checked: 'false' }, { id: 5, name: 'Sports', checked: 'false' }, { id: 6, name: 'Technology', checked: 'false' }]);
+  const [checkedHashtags, setCheckedHashtags] = React.useState([]);
+  const [checkedOne, setcheckedOne] = React.useState(false);
+  const [checkedTwo, setcheckedTwo] = React.useState(false);
+  const [checkedThree, setcheckedThree] = React.useState(false);
+  const [checkedFour, setcheckedFour] = React.useState(false);
+  const [checkedFive, setcheckedFive] = React.useState(false);
+  const [checkedSix, setcheckedSix] = React.useState(false);
 
 
   const handleClickOpen = () => {
@@ -140,6 +149,9 @@ export default function ProfilePage(props) {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    if (newValue==1){
+      getFollowers();      
+    }
   };
 
   const handleChangeIndex = (index) => {
@@ -152,22 +164,22 @@ export default function ProfilePage(props) {
     getUser();
     if (sessionStorage.getItem("loggedIn")) {
       apiClient.get('/api/hashtags')
-          .then(response => {
-              setHashtags(response.data)
-              hashtags = response.data;
+        .then(response => {
+          setHashtags(response.data)
+          hashtags = response.data;
 
 
-          })
-          .catch(error => console.error(error))
+        })
+        .catch(error => console.error(error))
 
-  }
+    }
 
-  getCheckedHashtags();
+    getCheckedHashtags();
   }, []);
 
-const fetchConspiracies = ()=>{
+  const fetchConspiracies = () => {
 
-  
+
     if (sessionStorage.getItem("loggedIn")) {
 
       apiClient
@@ -179,251 +191,309 @@ const fetchConspiracies = ()=>{
         })
         .catch((error) => console.error(error))
 
-   
-  };
 
+    };
 
-}
-
-const getUser = ()=>{
-
-  
-  if (sessionStorage.getItem("loggedIn")) {
-
-    apiClient
-      .get("/api/userInfo")
-      .then((response) => {
-        setUser([]);
-        setUser(response.data);
-
-      })
-      .catch((error) => console.error(error))
-
- 
-};
-
-
-}
-
-const setHashtag = (id) => {
-
-  if (sessionStorage.getItem("loggedIn")) {
-
-
-      apiClient
-          .post("/api/addHashtag", {
-            hashtags: [{id:1,checked:checkedOne},{id:2,checked:checkedTwo},{id:3,checked:checkedThree},{id:4,checked:checkedFour},{id:5,checked:checkedFive},{id:6,checked:checkedSix}]
-
-          }
-          )
 
   }
 
-}
+  const getUser = () => {
 
-
-
-const handleEditUsername =(name)=>{
- 
 
     if (sessionStorage.getItem("loggedIn")) {
-        
-       
-        const fd = new FormData();
 
-        fd.append('username', name);
+      apiClient
+        .get("/api/userInfo")
+        .then((response) => {
+          setUser([]);
+          setUser(response.data);
 
-        apiClient
-            .post("/api/editName", fd)
-
-    
-
-}
-sessionStorage.setItem("username",name);
-}
+        })
+        .catch((error) => console.error(error))
 
 
-const getCheckedHashtags=()=>{
-
-  if (sessionStorage.getItem("loggedIn")) {
-
-    apiClient
-      .get("/api/checkedHashtags")
-      .then((response) => {
-       
-        setCheckedHashtags(response.data);
-
-      })
-      .catch((error) => console.error(error))
-
- 
-};
-
-}
+    };
 
 
-React.useEffect(() => {
-  checkedHashtags.forEach(element => {
-    for (let index = 1; index <= 6; index++) {
-     if(element.hashtag_id==index){
-       switch (index) {
-         case 1:
-           setcheckedOne(true);
-           break;
-           case 2:
-           setcheckedTwo(true);
-           break;
-           case 3:
-           setcheckedThree(true);
-           break;
-           case 4:
-           setcheckedFour(true);
-           break;
-           case 5:
-           setcheckedFive(true);
-           break;
-           case 6:
-           setcheckedSix(true);
-           break;
-       
-         default:
-           break;
-       }
-      
+  }
 
-     }
-      
+  const setHashtag = (id) => {
+
+    if (sessionStorage.getItem("loggedIn")) {
+
+
+      apiClient
+        .post("/api/addHashtag", {
+          hashtags: [{ id: 1, checked: checkedOne }, { id: 2, checked: checkedTwo }, { id: 3, checked: checkedThree }, { id: 4, checked: checkedFour }, { id: 5, checked: checkedFive }, { id: 6, checked: checkedSix }]
+
+        }
+        )
+
     }
-  });
-}, [checkedHashtags]);
+
+  }
+
+
+
+  const handleEditUsername = (name) => {
+
+
+    if (sessionStorage.getItem("loggedIn")) {
+
+
+      const fd = new FormData();
+
+      fd.append('username', name);
+
+      apiClient
+        .post("/api/editName", fd)
+
+
+
+    }
+    sessionStorage.setItem("username", name);
+  }
+
+
+  const getCheckedHashtags = () => {
+
+    if (sessionStorage.getItem("loggedIn")) {
+
+      apiClient
+        .get("/api/checkedHashtags")
+        .then((response) => {
+
+          setCheckedHashtags(response.data);
+
+        })
+        .catch((error) => console.error(error))
+
+
+    };
+
+  }
+
+  const [followers, setFollowers] = React.useState([]);
+
+  const getFollowers = () => {
+
+    if (sessionStorage.getItem("loggedIn")) {
+
+      apiClient
+        .get("/api/getFollowers")
+        .then((response) => {
+
+          setFollowers(response.data);
+
+        })
+        .catch((error) => console.error(error))
+
+
+    };
+
+  }
+
+
+  React.useEffect(() => {
+    checkedHashtags.forEach(element => {
+      for (let index = 1; index <= 6; index++) {
+        if (element.hashtag_id == index) {
+          switch (index) {
+            case 1:
+              setcheckedOne(true);
+              break;
+            case 2:
+              setcheckedTwo(true);
+              break;
+            case 3:
+              setcheckedThree(true);
+              break;
+            case 4:
+              setcheckedFour(true);
+              break;
+            case 5:
+              setcheckedFive(true);
+              break;
+            case 6:
+              setcheckedSix(true);
+              break;
+
+            default:
+              break;
+          }
+
+
+        }
+
+      }
+    });
+  }, [checkedHashtags]);
 
 
 
   return (
     <div>
-      <Header
-        color="transparent"
-        brand="Material Kit React"
-        rightLinks={<HeaderLinks />}
-        fixed
-        changeColorOnScroll={{
-          height: 200,
-          color: "white"
-        }}
-        {...rest}
-      />
-      <Parallax small filter image={require("assets/img/profile-bg.jpg")} />
       
+      {/* <Parallax small filter image={require("assets/img/profile-bg.jpg")} /> */}
+
       <div className={classes.root}>
-      <AppBar position="static" color="default">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="fullWidth"
-          aria-label="full width tabs example"
+        <AppBar position="static" color="default">
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            variant="fullWidth"
+            aria-label="full width tabs example"
+          >
+            <Tab label="My Posts" {...a11yProps(0)} />
+            <Tab label="Friends" {...a11yProps(1)} />
+            <Tab label="Personal Info" {...a11yProps(2)} />
+          </Tabs>
+        </AppBar>
+        <SwipeableViews
+          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+          index={value}
+          onChangeIndex={handleChangeIndex}
         >
-          <Tab label="My Posts" {...a11yProps(0)} />
-          <Tab label="Friends" {...a11yProps(1)} />
-          <Tab label="Personal Info" {...a11yProps(2)} />
-        </Tabs>
-      </AppBar>
-      <SwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={value}
-        onChangeIndex={handleChangeIndex}
-      >
-        <TabPanel value={value} index={0} dir={theme.direction}>
-          {conspiracies.map((conspiracy)=>{return(<div key={conspiracy.id} style={{ border: '6px solid rgba(0, 0, 0, 0.05)' }}>
-                    <Card >
-                      <Typography variant="h3" style={{ color: 'black' }}>{conspiracy.title}</Typography> <Typography variant="h5" style={{ color: 'black' }}>By: {conspiracy.user.username}</Typography>
-                      <Typography variant="p" style={{ color: 'black' }}>{conspiracy.content}</Typography>
-                      <Typography variant="h5" style={{ color: 'black' }}>{moment(conspiracy.created_at).format("LLL")}</Typography>
-                      <Typography variant="h5" style={{ color: 'black' }}>#{conspiracy.hashtag.name}</Typography>
-                      <Button onClick={() => { setLong(conspiracy.long); setLat(conspiracy.lat); handleClickOpen() }}>Location</Button>
+          <TabPanel value={value} index={0} dir={theme.direction}>
+
+            <div>{conspiracies.map((conspiracy) => {
+
+              if (conspiracy.user_id !== null) {
+                return (
+
+
+                  <div key={conspiracy.id} style={{ border: '6px solid rgba(0, 0, 0, 0.05)' }}>
+
+                    <Card className={classes.root1}>
+                      <CardHeader
+                        avatar={
+                          <Avatar aria-label="recipe" className={classes.profile}>
+                            
+                    <img src={profile} alt="..." className={imageClasses} />
+                  
+</Avatar>
+                        }
+                        action={
+                          <IconButton aria-label="settings">
+                            <MoreVertIcon />
+                          </IconButton>
+                        }
+                        title={conspiracy.title}
+                        subheader={moment(conspiracy.created_at).format("LLL")}
+                      /> By: <Typography> {conspiracy.user.username}</Typography>
                       {conspiracy.media.map((path) => {
 
-                        return (
+                        return (<>
                           <div className="photo">
-                            <img src={path.path}></img></div>
-                        )
+                          </div>
+
+                          <CardMedia
+                            className={classes.media1}
+                            image={path.path}
+                            title="Paella dish"
+                          /></>)
                       })}
-                      <Vote postID={conspiracy.id} />
+                      <CardContent>
+                        <Typography variant="body2" color="textSecondary" component="p">{conspiracy.content}
+                        </Typography>
+                        <Typography variant="h5" style={{ color: 'black' }}>#{conspiracy.hashtag.name}</Typography>
+                        <Button onClick={() => { setLong(conspiracy.long); setLat(conspiracy.lat); handleClickOpen() }}>Location</Button>
+                      </CardContent>
+                      <CardActions disableSpacing>
+                        <IconButton aria-label="add to favorites">
+                          <Vote postID={conspiracy.id} />
+                        </IconButton>
+
+                      </CardActions>
+
                       <Comment postID={conspiracy.id} />
-
-
                     </Card>
 
-                  </div>)})}
-        </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-          Friends Here
-        </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-        Username:<EditText onSave={(e)=>(handleEditUsername(e.value))} value={sessionStorage.getItem("username")}/>
-          {user.map((user)=>{return(<><p>Date of Birth: {user.dob}</p> <p>Gender: {user.gender}</p><p>Phone Number: {user.phoneNumber}</p></>)})}
 
-<div><form>
-  
-  
-    <label>
-    <input
-      checked={checkedOne}
-      onChange={()=>{checkedOne?setcheckedOne(false):setcheckedOne(true)}}
-      type="checkbox"
-      
-      value="1"
-    />Politics</label>
-   
-   <label>
-    <input
-      checked={checkedTwo}
-      onChange={()=>{checkedTwo?setcheckedTwo(false):setcheckedTwo(true)}}
-      type="checkbox"
-      
-      value="2"
-    />Health</label>
 
-<label>
-    <input
-      checked={checkedThree}
-      onChange={()=>{checkedThree?setcheckedThree(false):setcheckedThree(true)}}
-      type="checkbox"
+
+                  </div>);
+              }
+            })}</div>
+          </TabPanel>
+          <TabPanel value={value} index={1} dir={theme.direction}>
+          {followers.map((follower)=>{return(
+           follower.requestee.username==sessionStorage.getItem('username')?<></>:<>
+            <Row><Col>
+            <img src = {profile} className="Avatar"/>
+            </Col><Col>
+            <h4>{follower.requestee.username}</h4></Col><Col><Button>Unfollow</Button></Col></Row></>
       
-      value="3"
-    />Social</label>
-     <label>
-    <input
-      checked={checkedFour}
-      onChange={()=>{checkedFour?setcheckedFour(false):setcheckedFour(true)}}
-      type="checkbox"
-      
-      value="4"
-    />Series</label>
-     <label>
-    <input
-      checked={checkedFive}
-      onChange={()=>{checkedFive?setcheckedFive(false):setcheckedFive(true)}}
-      type="checkbox"
-      
-      value="5"
-    />Sports</label>
-     <label>
-    <input
-      checked={checkedSix}
-      onChange={()=>{checkedSix?setcheckedSix(false):setcheckedSix(true)}}
-      type="checkbox"
-      
-      value="6"
-    />Technology</label>
-  
-<Button onClick={setHashtag}>Submit</Button>
-</form></div>
+          )})}
         </TabPanel>
-      </SwipeableViews>
-    </div>
-  
+          <TabPanel value={value} index={2} dir={theme.direction}>
+          
+            {user.map((user) => { return (<>
+              <p> <EditText onSave={(e) => (handleEditUsername(e.value))} value={sessionStorage.getItem("username")} style={{width:'20%',fontSize:'23px'}}/></p>
+            <p>Date of Birth: {user.dob}</p> <p>Gender: {user.gender}</p><p>Phone Number: {user.phoneNumber}</p></>) })}
+
+            <div><form>
+
+
+              <label>
+                <input
+                  checked={checkedOne}
+                  onChange={() => { checkedOne ? setcheckedOne(false) : setcheckedOne(true) }}
+                  type="checkbox"
+
+                  value="1"
+                />Politics</label>
+
+              <label>
+                <input
+                  checked={checkedTwo}
+                  onChange={() => { checkedTwo ? setcheckedTwo(false) : setcheckedTwo(true) }}
+                  type="checkbox"
+
+                  value="2"
+                />Health</label>
+
+              <label>
+                <input
+                  checked={checkedThree}
+                  onChange={() => { checkedThree ? setcheckedThree(false) : setcheckedThree(true) }}
+                  type="checkbox"
+
+                  value="3"
+                />Social</label>
+              <label>
+                <input
+                  checked={checkedFour}
+                  onChange={() => { checkedFour ? setcheckedFour(false) : setcheckedFour(true) }}
+                  type="checkbox"
+
+                  value="4"
+                />Series</label>
+              <label>
+                <input
+                  checked={checkedFive}
+                  onChange={() => { checkedFive ? setcheckedFive(false) : setcheckedFive(true) }}
+                  type="checkbox"
+
+                  value="5"
+                />Sports</label>
+              <label>
+                <input
+                  checked={checkedSix}
+                  onChange={() => { checkedSix ? setcheckedSix(false) : setcheckedSix(true) }}
+                  type="checkbox"
+
+                  value="6"
+                />Technology</label>
+              <br/>
+              <Button color="success" onClick={setHashtag} >Submit</Button>
+            </form></div>
+          </TabPanel>
+        </SwipeableViews>
+      </div>
+
 
 
 

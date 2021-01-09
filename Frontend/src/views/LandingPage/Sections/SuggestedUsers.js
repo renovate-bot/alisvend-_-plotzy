@@ -12,7 +12,7 @@ export default function SuggestedUsers(props) {
 
   React.useEffect(() => {
     fetchUsers();
-    getFollowers();
+    
   }, []);
 
 
@@ -21,7 +21,7 @@ export default function SuggestedUsers(props) {
     if (sessionStorage.getItem("loggedIn")) {
 
       apiClient
-        .post("/api/users")
+        .post("/api/getSuggested")
         .then((response) => {
           setUsers([]);
           setUsers(response.data);
@@ -41,27 +41,14 @@ export default function SuggestedUsers(props) {
           requester_id: sessionStorage.getItem('userId'),
           requestee_id: uid
         }
-        )
+        ).then(()=>fetchUsers()).catch((error) => console.error(error))
     }
   }
 
-  const getFollowers = () => {
-
-    if (sessionStorage.getItem("loggedIn")) {
-
-      apiClient
-        .get("/api/getFollowers")
-        .then((response) => {
-
-          setFollowers(response.data);
-
-        })
-        .catch((error) => console.error(error))
+ 
 
 
-    };
 
-  }
 
 
 
@@ -74,12 +61,12 @@ export default function SuggestedUsers(props) {
   return (
 
     <div style={{ marginLeft: '10px', marginRight : '10px' }}>
-      <h4 style={{ backgroundColor: '#f50057', borderRadius:"10px", textAlign:"center" }}>Suggested Users</h4>
+      <h4 style={{ backgroundColor: '#f50057', borderRadius:"10px", textAlign:"center",color:"white" }}>Suggested Users</h4>
       {users.map((user) => {
         return (
-          <div style={{ marginLeft: '10px', marginRight : '10px' }}>
+          <div style={{ marginLeft: '10px', marginRight : '10px', marginBottom:"10px",display:"flex",justifyContent:"space-between", alignItems:"center" }}>
             <div>
-        <Typography variant="p">{user.username}</Typography>
+        {user.username}
         </div>
         <div >
           <Button onClick={() => {followUser(user.id);}} >{text}</Button><br /></div>

@@ -16,6 +16,7 @@ import LoginPage from "views/LoginPage/LoginPage.js";
 
 import { StoreProvider } from "./globalState/Store";
 import SetupWizard from "views/ProfilePage/SetupWizard";
+import ProfilePagee from "./views/ProfilePage/ProfilePage copy";
 var hist = createBrowserHistory();
 
 ReactDOM.render(
@@ -25,7 +26,7 @@ ReactDOM.render(
     <Switch>
     <Route path="/SetupWizard-page" component={SetupWizard} />
       <Route path="/landing-page" component={LandingPage} />
-      <Route path="/profile-page" component={ProfilePage} />
+      <Route path="/profile-page" component={ProfilePagee} />
       <Route path="/" component={LoginPage} />
       
     </Switch>

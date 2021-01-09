@@ -1,4 +1,5 @@
-import { Button, TextField } from "@material-ui/core";
+import { Button,  TextField } from "@material-ui/core";
+import {Table} from "react-bootstrap";
 import React from "react";
 import firebase from '../../../firebase';
 import CommentVote from "./CommentVote";
@@ -55,12 +56,13 @@ export default function Comment(props) {
         return (
 
             <div>
-
+<div style={{display:'flex', alignItems:'center',width:"80%",margin:"0 auto 10px auto"}}>
                 <TextField
                     id="comment"
                     label="Comment"
                     type="text"
                     variant="outlined"
+                    value={comment}
                     fullWidth
                     onChange={e => setComment(e.target.value)}
                 />
@@ -69,17 +71,20 @@ export default function Comment(props) {
                     variant="contained"
                     color="secondary"
                     onClick={handleSubmit}
+                    style={{marginLeft:"10px"}}
 
                 >
                     Post
                 </Button >
-
+                </div>
+                <Table striped hover style={{marginLeft:'15px'}}>
+                    <tbody>
 {commentsList.map((comment)=>{return(
     <>
-<p>{comment.username}: {comment.comment}</p>
-<CommentVote  sendLikes={(e)=>{likes.push(e)}} commentID={comment.id}/>
+<tr><th>{comment.username}</th></tr> <tr><td>{comment.comment}</td></tr>
+<tr><td><CommentVote  sendLikes={(e)=>{likes.push(e)}} commentID={comment.id}/></td></tr>
 </>
-)})}
+)})}</tbody></Table>
 
             </div>
 

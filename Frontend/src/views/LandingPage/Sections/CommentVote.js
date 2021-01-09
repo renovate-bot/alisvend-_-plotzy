@@ -109,7 +109,7 @@ setSumLikes(0);
         value="a"
         control={<Radio color="primary" />}
        onDoubleClick={()=>removeVote(0)}
-        label={'Approves '+sumLikes}
+        label={'👍 '+sumLikes}
         labelPlacement="end"
       />
 
@@ -119,7 +119,7 @@ setSumLikes(0);
         value="b"
         control={<Radio color="secondary" />}
         onDoubleClick={()=>removeVote(1)}
-        label={'Disaproves '+sumDislikes}
+        label={'👎 '+sumDislikes}
         labelPlacement="end"
       />
       </RadioGroup>

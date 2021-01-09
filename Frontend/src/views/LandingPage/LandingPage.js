@@ -59,7 +59,7 @@ const dashboardRoutes = [];
 const useStyles = makeStyles(styles);
 
 export default function LandingPage(props) {
-  const classes =  useStyles()
+  const classes = useStyles()
   const { ...rest } = props;
   const [conspiracies, setConspiracies] = React.useState([]);
   const [long, setLong] = React.useState(null);
@@ -113,7 +113,7 @@ export default function LandingPage(props) {
     }
   };
 
-  
+
   return (
     <div>
       <Header
@@ -177,103 +177,86 @@ export default function LandingPage(props) {
 
 
                   <div key={conspiracy.id} style={{ border: '6px solid rgba(0, 0, 0, 0.05)' }}>
-                    <Card >
-                      {/* <Typography variant="h3" style={{ color: 'black' }}>{conspiracy.title}</Typography> <Typography variant="h5" style={{ color: 'black' }}>By: {conspiracy.user.username}</Typography>
-                      <Typography variant="p" style={{ color: 'black' }}>{conspiracy.content}</Typography>
-                      <Typography variant="h5" style={{ color: 'black' }}>{moment(conspiracy.created_at).format("LLL")}</Typography>
-                      <Typography variant="h5" style={{ color: 'black' }}>#{conspiracy.hashtag.name}</Typography>
-                      <Button onClick={() => { setLong(conspiracy.long); setLat(conspiracy.lat); handleClickOpen() }}>Location</Button>
-                      {conspiracy.media.map((path) => {
 
-                        return (
-                          <div className="photo">
-                            <img src={path.path}></img></div>
-                        )
-                      })}
-                      <Vote postID={conspiracy.id} />
-                      <Comment postID={conspiracy.id} /> */}
-                       <Card className={classes.root1}>
-      <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar1}>
-            R
+                    <Card className={classes.root1}>
+                      <CardHeader
+                        avatar={
+                          <Avatar aria-label="recipe" className={classes.avatar1}>
+                            R
           </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={conspiracy.title}
-        subheader={moment(conspiracy.created_at).format("LLL")}
-      /> By: <Typography> {conspiracy.user.username}</Typography>
-      {conspiracy.media.map((path) => {
+                        }
+                        action={
+                          <i className='fas fa-map-marker-alt' onClick={() => { setLong(conspiracy.long); setLat(conspiracy.lat); handleClickOpen()}} />
+                        }
+                        title={`${conspiracy.title} by ${conspiracy.user.username}`}
+                        subheader={moment(conspiracy.created_at).format("LLL")}
+                      /> 
+                      <Typography variant="h6" style={{ color: 'cornflowerblue' }}>#{conspiracy.hashtag.name}</Typography>
+                      {conspiracy.media.map((path) => {
+                        
+                        return (<>
+                        <div style={{width:'100%', textAlign:'center'}}>
+                        <img src={path.path} className="conspImage"></img>
+                        </div>
+                          </>)
+                      })}
+                      <CardContent>
+                        <Typography variant="h6" color="textSecondary" component="p">{conspiracy.content}
+                        </Typography>
+                        
+                        {/* <Button onClick={() => { setLong(conspiracy.long); setLat(conspiracy.lat); handleClickOpen() }}>Location</Button> */}
+                        {/* <i className='fas fa-map-marker-alt' onClick={() => { setLong(conspiracy.long); setLat(conspiracy.lat); handleClickOpen()}} /> */}
+                      </CardContent>
+                      <CardActions disableSpacing>
+                        <IconButton aria-label="add to favorites">
+                          <Vote postID={conspiracy.id} />
+                        </IconButton>
 
-return (<>
-  <div className="photo">
-    <img src={path.path}></img></div>
+                      </CardActions>
 
-      <CardMedia
-        className={classes.media1}
-        image={path.path}
-        title="Paella dish"
-      /></>)
-    })}
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">{conspiracy.content}
-        </Typography>
-        <Typography variant="h5" style={{ color: 'black' }}>#{conspiracy.hashtag.name}</Typography>
-                      <Button onClick={() => { setLong(conspiracy.long); setLat(conspiracy.lat); handleClickOpen() }}>Location</Button>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-        <Vote postID={conspiracy.id} />
-        </IconButton>
-       
-      </CardActions>
-      
-      <Comment postID={conspiracy.id} /> 
-    </Card>
-
-
+                      <Comment postID={conspiracy.id} />
                     </Card>
+
+
+
 
                   </div>);
               } else {
                 return (<Card>
-<CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
+                  <CardHeader
+                    avatar={
+                      <Avatar aria-label="recipe" className={classes.avatar}>
+                        R
           </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={conspiracy.title}
-        subheader={moment(conspiracy.created_at).format("LLL")}
-      /> By Anonymous
-      <CardMedia
-        className={classes.media}
-        image="/static/images/cards/paella.jpg"
-        title="Paella dish"
-      />
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">{conspiracy.content}
-        </Typography>
-        <Typography variant="h5" style={{ color: 'black' }}>#{conspiracy.hashtag.name}</Typography>
-                      
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-        <Vote postID={conspiracy.id} />
-        </IconButton>
-        
-      </CardActions>
-      
-      <Comment postID={conspiracy.id} /> 
+                    }
+                    action={
+                      <IconButton aria-label="settings">
+                        <MoreVertIcon />
+                      </IconButton>
+                    }
+                    title={`${conspiracy.title} by Anonymous`}
+                   
+                    subheader={moment(conspiracy.created_at).format("LLL")}
+                  /> 
+                  <CardMedia
+                    className={classes.media}
+                    image="/static/images/cards/paella.jpg"
+                    title="Paella dish"
+                  />
+                  <CardContent>
+                    <Typography variant="body2" color="textSecondary" component="p">{conspiracy.content}
+                    </Typography>
+                    <Typography variant="h5" style={{ color: 'black' }}>#{conspiracy.hashtag.name}</Typography>
+
+                  </CardContent>
+                  <CardActions disableSpacing>
+                    <IconButton aria-label="add to favorites">
+                      <Vote postID={conspiracy.id} />
+                    </IconButton>
+
+                  </CardActions>
+
+                  <Comment postID={conspiracy.id} />
 
                 </Card>);
               }

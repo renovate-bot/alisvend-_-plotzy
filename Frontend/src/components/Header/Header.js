@@ -15,7 +15,7 @@ import Drawer from "@material-ui/core/Drawer";
 import Menu from "@material-ui/icons/Menu";
 // core components
 import styles from "assets/jss/material-kit-react/components/headerStyle.js";
-import Search from "./Search";
+
 
 const useStyles = makeStyles(styles);
 
@@ -61,7 +61,7 @@ export default function Header(props) {
     [classes.absolute]: absolute,
     [classes.fixed]: fixed
   });
-  const brandComponent = <Button className={classes.title}  onClick={(e) => {
+  const brandComponent = <Button className={classes.title} style={{fontSize:'34px'}}  onClick={(e) => {
     e.preventDefault();
     window.location.href='/landing-page';
     }} >plotzy</Button>;
@@ -79,7 +79,7 @@ export default function Header(props) {
             brandComponent
           )}
         </div>
-        <Search/>
+        
         <Hidden smDown implementation="css">
           {rightLinks}
         </Hidden>

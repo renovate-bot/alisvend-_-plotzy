@@ -63,10 +63,10 @@ export default function HeaderLinks(props) {
        <Link to="/" onClick={logout} className={classes.dropdownLink}>
        Logout
      </Link>
-        
-            
           ]}
         />
+
+<i buttonIcon="tim-icons icon-bell-55" className="tim-icons icon-bell-55" {...classes.dropdownLink}/>
         </div>
         
         </div>

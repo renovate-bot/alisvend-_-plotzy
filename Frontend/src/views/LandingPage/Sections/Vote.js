@@ -87,7 +87,7 @@ export default function Vote(props) {
             setSumLikes(sumLikes-1);
         }else{setSumDislikes(sumDislikes-1);}
     }
-
+const like = '<i className="fa fa-thumbs-up" style="font-size:24px"/>';
     return (
 
 <div>
@@ -99,7 +99,7 @@ export default function Vote(props) {
         value="a"
         control={<Radio color="primary" />}
        onDoubleClick={()=>removeVote(0)}
-        label={'Approves '+sumLikes}
+        label={'👍 '+sumLikes}
         labelPlacement="end"
       />
 
@@ -109,7 +109,7 @@ export default function Vote(props) {
         value="b"
         control={<Radio color="secondary" />}
         onDoubleClick={()=>removeVote(1)}
-        label={'Disaproves '+sumDislikes}
+        label={'👎 '+sumDislikes}
         labelPlacement="end"
       />
       </RadioGroup>
