@@ -119,7 +119,7 @@ class ConspiracyController extends Controller
         $user = Auth::id();
          $hashtagIds=user_hashtag::where('user_id','=',$user)->get('hashtag_id');
         
-         $conspiracies = Conspiracy::with('hashtag')->with('media')->with('user')->whereIn('hashtag_id',$hashtagIds)->get();
+         $conspiracies = Conspiracy::with('hashtag')->with('media')->with('user')->whereIn('hashtag_id',$hashtagIds)->orderBy('created_at', 'DESC')->get();
          return $conspiracies;
        
 
@@ -136,6 +136,14 @@ class ConspiracyController extends Controller
 
     }
 
+        public function numberOfConspiracies(){
+
+            $user = Auth::id();
+            $conspiracies = Conspiracy::where('user_id',$user)->get();
+            $number = $conspiracies->count();
+            return $number;
+
+        }
     public function updateConspiracy(Request $request)
     {
         Conspiracy::where('id', $request->get('id'))

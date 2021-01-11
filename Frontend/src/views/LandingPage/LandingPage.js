@@ -229,24 +229,17 @@ export default function LandingPage(props) {
                         R
           </Avatar>
                     }
-                    action={
-                      <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                      </IconButton>
-                    }
+                    
                     title={`${conspiracy.title} by Anonymous`}
                    
                     subheader={moment(conspiracy.created_at).format("LLL")}
                   /> 
-                  <CardMedia
-                    className={classes.media}
-                    image="/static/images/cards/paella.jpg"
-                    title="Paella dish"
-                  />
+                  <Typography variant="h5" style={{ color: 'cornflowerblue' }}>#{conspiracy.hashtag.name}</Typography>
+                  
                   <CardContent>
                     <Typography variant="body2" color="textSecondary" component="p">{conspiracy.content}
                     </Typography>
-                    <Typography variant="h5" style={{ color: 'black' }}>#{conspiracy.hashtag.name}</Typography>
+                    
 
                   </CardContent>
                   <CardActions disableSpacing>

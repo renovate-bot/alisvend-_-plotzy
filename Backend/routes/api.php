@@ -41,3 +41,4 @@ Route::middleware('auth:sanctum')->get('/checkedHashtags', [UserHashtagControlle
 Route::middleware('auth:sanctum')->post('/editHashtag', [UserHashtagController::class,'updateHashtag']); 
 Route::middleware('auth:sanctum')->get('/getFollowers', [FollowerController::class,'getFollowers']);
 Route::middleware('auth:sanctum')->post('/getSuggested', [FollowerController::class,'getSuggested']);
+Route::middleware('auth:sanctum')->get('/numberOfConspiracies', [ConspiracyController::class,'numberOfConspiracies']);

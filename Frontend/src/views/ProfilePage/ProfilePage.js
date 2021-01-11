@@ -133,7 +133,7 @@ export default function ProfilePage(props) {
   const [checkedFour, setcheckedFour] = React.useState(false);
   const [checkedFive, setcheckedFive] = React.useState(false);
   const [checkedSix, setcheckedSix] = React.useState(false);
-
+  const [number, setNumber] = React.useState(null);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -175,6 +175,8 @@ export default function ProfilePage(props) {
     }
 
     getCheckedHashtags();
+    getNumberOfConspiracies();
+
   }, []);
 
   const fetchConspiracies = () => {
@@ -293,6 +295,24 @@ export default function ProfilePage(props) {
 
   }
 
+  const getNumberOfConspiracies = () => {
+
+    if (sessionStorage.getItem("loggedIn")) {
+
+      apiClient
+        .get("/api/numberOfConspiracies")
+        .then((response) => {
+
+          setNumber(response.data);
+
+        })
+        .catch((error) => console.error(error))
+
+
+    };
+
+  }
+
 
   React.useEffect(() => {
     checkedHashtags.forEach(element => {
@@ -357,7 +377,9 @@ export default function ProfilePage(props) {
           onChangeIndex={handleChangeIndex}
         >
           <TabPanel value={value} index={0} dir={theme.direction}>
-
+            <div style={{textAlign:"left", fontSize:"2rem"}}>
+            Number of Posts: {number}
+            </div>
             <div>{conspiracies.map((conspiracy) => {
 
               if (conspiracy.user_id !== null) {
@@ -376,30 +398,29 @@ export default function ProfilePage(props) {
 </Avatar>
                         }
                         action={
-                          <IconButton aria-label="settings">
-                            <MoreVertIcon />
-                          </IconButton>
+                          <i className='fas fa-map-marker-alt' onClick={() => { setLong(conspiracy.long); setLat(conspiracy.lat); handleClickOpen()}} />
                         }
-                        title={conspiracy.title}
+                        title={`${conspiracy.title}`}
                         subheader={moment(conspiracy.created_at).format("LLL")}
-                      /> By: <Typography> {conspiracy.user.username}</Typography>
+                      /> 
+                      <Typography variant="h6" style={{ color: 'cornflowerblue' }}>#{conspiracy.hashtag.name}</Typography>
+
+                        
+                      
                       {conspiracy.media.map((path) => {
 
                         return (<>
-                          <div className="photo">
-                          </div>
+                          <div style={{width:'100%', textAlign:'center'}}>
+                        <img src={path.path} className="conspImage"></img>
+                        </div>
 
-                          <CardMedia
-                            className={classes.media1}
-                            image={path.path}
-                            title="Paella dish"
-                          /></>)
+                         </>)
                       })}
                       <CardContent>
                         <Typography variant="body2" color="textSecondary" component="p">{conspiracy.content}
                         </Typography>
-                        <Typography variant="h5" style={{ color: 'black' }}>#{conspiracy.hashtag.name}</Typography>
-                        <Button onClick={() => { setLong(conspiracy.long); setLat(conspiracy.lat); handleClickOpen() }}>Location</Button>
+                        
+                        
                       </CardContent>
                       <CardActions disableSpacing>
                         <IconButton aria-label="add to favorites">
