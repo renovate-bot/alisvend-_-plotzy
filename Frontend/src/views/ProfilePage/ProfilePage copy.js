@@ -31,6 +31,8 @@ import work4 from "assets/img/examples/mariya-georgieva.jpg";
 import work5 from "assets/img/examples/clem-onojegaw.jpg";
 import ProfilePage from "./ProfilePage";
 import styles from "assets/jss/material-kit-react/views/profilePage.js";
+import apiClient from "../../api";
+
 
 const useStyles = makeStyles(styles);
 
@@ -43,6 +45,33 @@ export default function ProfilePagee(props) {
     classes.imgFluid
   );
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
+    const [user,setUser]=React.useState([]);
+
+
+    React.useEffect(() => {
+      const getUser = () => {
+
+
+        if (sessionStorage.getItem("loggedIn")) {
+    
+          apiClient
+            .get("/api/userInfo")
+            .then((response) => {
+              setUser([]);
+              setUser(response.data);
+    
+            })
+            .catch((error) => console.error(error))
+    
+    
+        };
+    
+    
+      }
+    }, []);
+    
+
+
   return (
     <div>
       <Header
@@ -62,9 +91,13 @@ export default function ProfilePagee(props) {
           <div >
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={6}>
+
+              {/* {user.map((user) => { return (<>
+                {sessionStorage.setItem("profile_pic",user.profile_pic)}
+            </>) })} */}
                 <div className={classes.profile}>
                   <div>
-                    <img src={profile} alt="..." className={imageClasses} />
+                    <img src={sessionStorage.getItem("profile_pic")} alt="..." className={imageClasses} />
                   </div>
                   <div className={classes.name}>
                     <h3 className={classes.title}>{sessionStorage.getItem('username')}</h3>

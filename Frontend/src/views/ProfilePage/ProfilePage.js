@@ -40,7 +40,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import moment from 'moment';
-import { Card } from '@material-ui/core';
+import { Card, Table } from '@material-ui/core';
 import Comment from "../LandingPage/Sections/Comment";
 import Vote from "../LandingPage/Sections/Vote";
 import { EditText, EditTextarea } from 'react-edit-text';
@@ -393,7 +393,7 @@ export default function ProfilePage(props) {
                         avatar={
                           <Avatar aria-label="recipe" className={classes.profile}>
                             
-                    <img src={profile} alt="..." className={imageClasses} />
+                    <img src={conspiracy.user.profile_pic} alt="..." className={imageClasses} />
                   
 </Avatar>
                         }
@@ -442,10 +442,14 @@ export default function ProfilePage(props) {
           <TabPanel value={value} index={1} dir={theme.direction}>
           {followers.map((follower)=>{return(
            follower.requestee.username==sessionStorage.getItem('username')?<></>:<>
-            <Row><Col>
-            <img src = {profile} className="Avatar"/>
-            </Col><Col>
-            <h4>{follower.requestee.username}</h4></Col><Col><Button>Unfollow</Button></Col></Row></>
+            <Table><tbody><tr>
+              <td style={{width:'50px'}}>
+            <Avatar>
+            <img src = {follower.requestee.profile_pic} className="Avatar"/></Avatar>
+            </td>
+            <td style={{width:'50px'}}>
+            <h4>{follower.requestee.username}</h4></td>
+            <td style={{width:'50px'}}><Button>Unfollow</Button></td></tr></tbody></Table></>
       
           )})}
         </TabPanel>

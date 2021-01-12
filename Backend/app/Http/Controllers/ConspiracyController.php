@@ -84,12 +84,12 @@ class ConspiracyController extends Controller
               $filename  = $file->getClientOriginalName();
               $extension = $file->getClientOriginalExtension();
               $picture   = date('His').'-'.$filename;
-              
+              $pic = '/'.'img'.'/'.$picture;
             $file->move(public_path('img'), $picture);
             $user = Auth::id();
             
               User::where('id', $user)
-                ->update(['profile_pic' => $request->profile_pic]);
+                ->update(['profile_pic' => $pic]);
         }
     }
 

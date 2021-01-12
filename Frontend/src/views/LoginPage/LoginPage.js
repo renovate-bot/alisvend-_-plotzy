@@ -63,6 +63,7 @@ export default function LoginPage(props) {
                       setToHome(true);
                         sessionStorage.setItem('userId', response.data.id);
                         sessionStorage.setItem('username', response.data.username);
+                        sessionStorage.setItem('profile_pic', response.data.profile_pic);
                     });
                 }
             })

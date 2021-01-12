@@ -1,7 +1,8 @@
 import React from "react";
 import apiClient from '../../../api';
-import { Typography } from '@material-ui/core';
+import { Avatar, Typography } from '@material-ui/core';
 import { Button, TextField } from "@material-ui/core";
+import { Col, Row, Table } from "react-bootstrap";
 
 
 export default function SuggestedUsers(props) {
@@ -64,13 +65,23 @@ export default function SuggestedUsers(props) {
       <h4 style={{ backgroundColor: '#f50057', borderRadius:"10px", textAlign:"center",color:"white" }}>Suggested Users</h4>
       {users.map((user) => {
         return (
+
           <div style={{ marginLeft: '10px', marginRight : '10px', marginBottom:"10px",display:"flex",justifyContent:"space-between", alignItems:"center" }}>
-            <div>
-        {user.username}
-        </div>
-        <div >
-          <Button onClick={() => {followUser(user.id);}} >{text}</Button><br /></div>
-          </div>)
+            
+              <Table style={{width:"100%"}}>
+              <tr>
+              <td >
+              <Avatar>
+                <img src={user.profile_pic}/>
+                
+              </Avatar></td>
+              <td >{user.username}</td>
+       
+
+      
+              <td style={{float:"right"}}> <Button onClick={() => {followUser(user.id);}} >{text}</Button><br /></td></tr></Table>
+          </div>
+          )
       })}
 
 

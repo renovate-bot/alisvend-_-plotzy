@@ -29,7 +29,7 @@ class FollowerController extends Controller
 
         $suggested = Follower::where('requester_id',Auth::id())->get('requestee_id');
 
-       return DB::table('users')->where('id','<>',Auth::id())->whereNotIn('users.id',$suggested)->select(DB::raw('username,id '))->get();
+       return DB::table('users')->where('id','<>',Auth::id())->whereNotIn('users.id',$suggested)->select(DB::raw('username,id,profile_pic '))->get();
 
 
 
