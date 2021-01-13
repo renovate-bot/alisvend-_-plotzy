@@ -72,7 +72,7 @@ export default function SuggestedUsers(props) {
               <tr>
               <td >
               <Avatar>
-                <img src={user.profile_pic}/>
+                <img style={{width:"40px",height:"40px"}} src={user.profile_pic}/>
                 
               </Avatar></td>
               <td >{user.username}</td>

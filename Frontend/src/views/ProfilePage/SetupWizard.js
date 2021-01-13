@@ -23,6 +23,7 @@ import Box from '@material-ui/core/Box';
 import StepProgressBar from 'react-step-progress';
 import 'react-step-progress/dist/index.css';
 import CheckboxGroup from 'react-checkbox-group'
+import Axios from 'axios';
 
 
 function TabPanel(props) {
@@ -163,13 +164,19 @@ export default function SetupWizard() {
 
         if (sessionStorage.getItem("loggedIn")) {
             e.preventDefault();
-           
+            
             const fd = new FormData();
 
             fd.append('profile_pic', image);
 
             apiClient
-                .post("/api/addProfilePicture", fd)
+                .post("/api/addProfilePicture", fd).then(
+                    apiClient.get("api/user").then((response) => {
+                        console.log("testtttt");
+                        sessionStorage.setItem("profile_pic",response.data.profile_pic)
+              
+                      })
+                )
 
         }
 
@@ -229,6 +236,7 @@ export default function SetupWizard() {
                 type="file"
                 onChange={(e) => { handleImage(e.target.files) }}
             />
+           
 
             <label htmlFor="media-file-input"><Button type="submit" >Upload</Button> </label>
         </form>

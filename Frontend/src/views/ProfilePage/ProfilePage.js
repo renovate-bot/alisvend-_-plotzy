@@ -393,7 +393,7 @@ export default function ProfilePage(props) {
                         avatar={
                           <Avatar aria-label="recipe" className={classes.profile}>
                             
-                    <img src={conspiracy.user.profile_pic} alt="..." className={imageClasses} />
+                    <img style={{width:"40px",height:"40px"}} src={conspiracy.user.profile_pic} alt="..." className={imageClasses} />
                   
 </Avatar>
                         }
@@ -447,9 +447,9 @@ export default function ProfilePage(props) {
             <Avatar>
             <img src = {follower.requestee.profile_pic} className="Avatar"/></Avatar>
             </td>
-            <td style={{width:'50px'}}>
+            <td style={{width:'50px',float:"left"}}>
             <h4>{follower.requestee.username}</h4></td>
-            <td style={{width:'50px'}}><Button>Unfollow</Button></td></tr></tbody></Table></>
+            <td style={{width:'50px',float:"left",marginLeft:"60px"}}><Button>Unfollow</Button></td></tr></tbody></Table></>
       
           )})}
         </TabPanel>

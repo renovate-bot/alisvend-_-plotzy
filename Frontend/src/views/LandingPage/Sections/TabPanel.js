@@ -17,7 +17,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import SearchableMap from './SearchableMap';
-
+import firebase from "../../../firebase";
 
 
 function TabPanel(props) {
@@ -97,6 +97,19 @@ export default function FullWidthTabs(props) {
   }
 
   const handleSubmitConspiracy = (e) => {
+
+    // const posts = firebase.database().ref('Posts/');
+    // posts.push({
+    //   title:title,
+    //   content:conspiracy,
+    //   hashtag_id:hashtag,
+    //   path:image,
+    //   long:longitude,
+    //   lat:latitude,
+    //   user_id:sessionStorage.getItem("user_id")
+
+    
+    // });
 
     if (sessionStorage.getItem("loggedIn")) {
       e.preventDefault();

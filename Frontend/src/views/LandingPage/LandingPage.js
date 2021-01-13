@@ -182,7 +182,7 @@ export default function LandingPage(props) {
                       <CardHeader
                         avatar={
                           <Avatar aria-label="recipe" className={classes.avatar1}>
-                            <img src={conspiracy.user.profile_pic}/>
+                            <img style={{width:"40px",height:"40px"}} src={conspiracy.user.profile_pic}/>
           </Avatar>
                         }
                         action={
