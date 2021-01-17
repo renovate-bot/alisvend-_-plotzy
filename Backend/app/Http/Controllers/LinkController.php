@@ -23,7 +23,7 @@ class LinkController extends Controller
         $user = Auth::id();
       
         
-         $links = Link::get();
+         $links = Link::orderBy('created_at', 'DESC')->get();
          return $links;
        
 

@@ -31,7 +31,7 @@ class ConspiracyController extends Controller
     {
         $user = Auth::id();
         User::where('id', $user)
-            ->update(['phoneNumber' => $request->phoneNumber]);
+            ->update(['phoneNumber' => $request->phoneNumber,'dob'=>$request->dob,'gender'=>$request->gender]);
     }
 
     public function addConspiracy(Request $request)

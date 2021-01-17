@@ -14,7 +14,7 @@ class SearchableMap extends React.Component {
     viewport :{
       latitude: Number(this.props.latitude),
       longitude: Number(this.props.longitude),
-      zoom: 9,
+      zoom: 12,
     },
     long:0,
     lat:0,

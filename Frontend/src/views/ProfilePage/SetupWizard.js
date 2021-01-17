@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Typography } from "@material-ui/core";
+import { Avatar, Button, Typography } from "@material-ui/core";
 
 import apiClient from "../../api";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -24,7 +24,9 @@ import StepProgressBar from 'react-step-progress';
 import 'react-step-progress/dist/index.css';
 import CheckboxGroup from 'react-checkbox-group'
 import Axios from 'axios';
-
+import { RadioGroup, Radio, FormControl, FormLabel} from "@material-ui/core";
+import TextField from '@material-ui/core/TextField';
+var AvatarPicker = require("material-ui-avatar-picker");
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -73,9 +75,13 @@ export default function SetupWizard() {
     const classes = useStyles();
     const [value, setValue] = useState(0);
     const [phone, setPhone] = useState(null);
+    const[source,setSource] = useState('')
     let phone1 = null;
     let image = null;
+   let dob = null;
+   let gender = null;
 
+   
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -112,19 +118,7 @@ export default function SetupWizard() {
 
 
     }
-    useEffect(() => {
-        // if (sessionStorage.getItem("loggedIn")) {
-        //     apiClient.get('/api/hashtags')
-        //         .then(response => {
-        //             setHashtags(response.data)
-        //             hashtags = response.data;
-
-
-        //         })
-        //         .catch(error => console.error(error))
-
-        // }
-    }, []);
+    
 
     const setHashtag = (id) => {
 
@@ -148,8 +142,9 @@ export default function SetupWizard() {
        
         if (sessionStorage.getItem("loggedIn")) {
             apiClient.post('/api/addPhone', {
-                phoneNumber: phone1
-
+                phoneNumber: phone1,
+                dob:dob,
+                gender:gender
             })
         }
        
@@ -157,7 +152,8 @@ export default function SetupWizard() {
 
     const handleImage = (file) => {
         //setImage(file[0]);
-        image = file[0]
+        image = file[0];
+        setSource("/ali.JPG")
     }
 
     const handleSubmitPic = (e) => {
@@ -172,7 +168,7 @@ export default function SetupWizard() {
             apiClient
                 .post("/api/addProfilePicture", fd).then(
                     apiClient.get("api/user").then((response) => {
-                        console.log("testtttt");
+                       
                         sessionStorage.setItem("profile_pic",response.data.profile_pic)
               
                       })
@@ -184,8 +180,8 @@ export default function SetupWizard() {
 
 
     const step1Content = <><br />
-    <div style={{fontWeight:'bold',marginTop:'20px'}}>Enter your phone number:</div>
         <form className="formCustom">
+<div>            
             <CustomInput
                 labelText="Phone Number..."
                 id="phone"
@@ -200,17 +196,45 @@ export default function SetupWizard() {
 
                 }}
             />
+            </div>
+            <div>
+            <TextField
+                                id="date"
+                                label="Date of birth"
+                                type="date"
+                                value={dob}
+                                onChange={e => { dob=e.target.value }}
+                                defaultValue="2017-05-24"
+                                className={classes.textField}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                               </div>
+                               <div><FormControl component="fieldset">
+                                    <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
+                                    <FormLabel component="legend" style={{marginRight:'20px'}}>Gender</FormLabel>
 
-            <Button type="submit" onClick={handleSubmitPhone}>Submit</Button>
+                                    <RadioGroup  aria-label="gender" name="gender1" value={gender} onChange={e => {gender = e.target.value}}>
+                                   <div style={{display:'flex'}}>
+                                   <div><FormControlLabel value="female" control={<Radio />} label="Female" /></div> 
+                                   <div><FormControlLabel value="male"  control={<Radio />} label="Male" /></div> 
+                                   <div><FormControlLabel value="other"  control={<Radio />} label="Other" /></div> 
+                                   </div>
+                                    </RadioGroup></div>
+                            </FormControl>
+                            </div>
+            <Button variant="contained" color="secondary" type="submit" onClick={handleSubmitPhone}>Save Changes</Button>
 
         </form></>;
 
 
     const step2Content = <>
-        <Typography variant="h4" style={{ color: 'black', textAlign: 'center' }}><br />Choose Your favorite topics to follow!</Typography>
+        <Typography variant="h4" style={{ color: 'black', textAlign: 'center',padding:'40px 0' }}><br />Choose Your favorite topics to follow!</Typography>
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
 
-            <div>{ hashtags.map((hashtag) => {
+            <div style={{padding:'30px 0'}}>{ hashtags.map((hashtag) => {
             
         return (
             <FormControlLabel
@@ -225,9 +249,9 @@ export default function SetupWizard() {
         </div></>;
 
 
-    const step3Content = <> <br /> <div style={{fontWeight:'bold'}}>Upload your profile Picture:</div>
+    const step3Content = <> <br /> <div style={{fontWeight:'bold',marginLeft:"75px"}}><br/>Upload your profile Picture:</div>
         <form onSubmit={handleSubmitPic} className="formCustom">
-            <input
+            {/* <input
 
                 accept="image/*"
                 className={classes.input}
@@ -235,10 +259,35 @@ export default function SetupWizard() {
                 multiple
                 type="file"
                 onChange={(e) => { handleImage(e.target.files) }}
-            />
-           
+            /> */}
+             <Avatar style={{width:200,height:200,marginLeft:"140px",marginBottom:"20px"}} src={source} alt="..."/>
 
-            <label htmlFor="media-file-input"><Button type="submit" >Upload</Button> </label>
+           <div style={{ width: "35%", display: "inline-flex", justifyContent: "center", alignItems: "center" }}>
+
+     
+                  <input
+                    hidden
+                    
+                    className={classes.input}
+                    id="media-file-input"
+                    multiple
+                    type="file"
+                    onChange={(e) => { handleImage(e.target.files) }}
+                  />
+
+                  <label htmlFor="media-file-input">
+                      <div style={{display:"flex"}}>
+                    <Button style={{width:"180px", marginLeft:"100px"}} variant="contained" color="primary" component="span" size="large" >
+                      Upload Picture
+                    </Button>
+                    
+                    <Button style={{marginLeft:"20px"}} variant="contained" color="secondary" type="submit" >Save</Button> </div>
+                  </label>
+
+
+                </div>
+            
+          
         </form>
     </>;
 

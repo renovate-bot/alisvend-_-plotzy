@@ -70,8 +70,8 @@ export default function NewTask(props) {
                     email: email,
                     password: password,
                     password_confirmation: password_confirmation,
-                    dob: dob,
-                    gender: gender,
+                    dob:'1998-01-01',
+                    gender:'male'
 
                 }).then(response => {
 
@@ -108,8 +108,8 @@ export default function NewTask(props) {
 
                     </DialogActions>
 
-                    <form className={classes.form} >
-                        <CardHeader color="primary" className={classes.cardHeader}>
+                    <form className= 'register'>
+                        <CardHeader color="primary" style={{padding:'20px'}}>
                             <h4>Register Now and post your theory!</h4>
 
                         </CardHeader>
@@ -133,7 +133,7 @@ export default function NewTask(props) {
                                     )
                                 }}
                             />
-                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                         <br/>
                             <CustomInput
                                 labelText="Email..."
                                 id="email"
@@ -174,7 +174,7 @@ export default function NewTask(props) {
                                     autoComplete: "off"
                                 }}
                             />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <br/>
                             <CustomInput
                                 labelText="Password Confirmation"
                                 id="password_confirmation"
@@ -197,7 +197,7 @@ export default function NewTask(props) {
                                 }}
                             />
                             <br></br><br></br>
-                            <TextField
+                            {/* <TextField
                                 id="date"
                                 label="Date of birth"
                                 type="date"
@@ -217,7 +217,7 @@ export default function NewTask(props) {
                                     <FormControlLabel value="male" control={<Radio />} label="Male" />
                                     <FormControlLabel value="other" control={<Radio />} label="Other" />
                                 </RadioGroup>
-                            </FormControl>
+                            </FormControl> */}
 
 
                         </CardBody>

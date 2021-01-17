@@ -15,8 +15,9 @@ import ProfilePage from "views/ProfilePage/ProfilePage.js";
 import LoginPage from "views/LoginPage/LoginPage.js";
 
 import { StoreProvider } from "./globalState/Store";
-import SetupWizard from "views/ProfilePage/SetupWizard";
+import SetupWizard from "views/ProfilePage/SetupWizard copy";
 import ProfilePagee from "./views/ProfilePage/ProfilePage copy";
+import SetupWizardd from "./views/ProfilePage/SetupWizard copy";
 var hist = createBrowserHistory();
 
 ReactDOM.render(
@@ -24,7 +25,7 @@ ReactDOM.render(
 <StoreProvider>
   <Router history={hist}>
     <Switch>
-    <Route path="/SetupWizard-page" component={SetupWizard} />
+    <Route path="/SetupWizard-page" component={SetupWizardd} />
       <Route path="/landing-page" component={LandingPage} />
       <Route path="/profile-page" component={ProfilePagee} />
       <Route path="/" component={LoginPage} />

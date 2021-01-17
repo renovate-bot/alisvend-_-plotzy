@@ -23,8 +23,8 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('score')->default(0);
             $table->string('hashtag')->default('000000');
             $table->boolean('isAnonymous')->default(false);
-            $table->date('dob');
-            $table->enum('gender', ['female', 'male','other']);
+            $table->date('dob')->default('1998-01-01');
+            $table->enum('gender', ['female', 'male','other'])->default('male');
             $table->rememberToken();
             $table->timestamps();
             $table->unsignedInteger('phoneNumber')->default(0);

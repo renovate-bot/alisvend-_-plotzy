@@ -49,7 +49,7 @@ export default function ProfilePagee(props) {
 
 
     React.useEffect(() => {
-      const getUser = () => {
+     
 
 
         if (sessionStorage.getItem("loggedIn")) {
@@ -59,7 +59,7 @@ export default function ProfilePagee(props) {
             .then((response) => {
               setUser([]);
               setUser(response.data);
-    
+              sessionStorage.setItem("profile_pic",response.data.profile_pic)
             })
             .catch((error) => console.error(error))
     
@@ -67,12 +67,18 @@ export default function ProfilePagee(props) {
         };
     
     
-      }
-    }, []);
     
+    }, []);
+
+    apiClient.get("api/user").then((response) => {
+                       
+      sessionStorage.setItem("profile_pic",response.data.profile_pic)
+
+    })
 
 
   return (
+    
     <div>
       <Header
         color="transparent"
@@ -92,9 +98,6 @@ export default function ProfilePagee(props) {
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={6}>
 
-              {/* {user.map((user) => { return (<>
-                {sessionStorage.setItem("profile_pic",user.profile_pic)}
-            </>) })} */}
                 <div className={classes.profile}>
                   <div>
                     <img src={sessionStorage.getItem("profile_pic")} alt="..." className={imageClasses} />

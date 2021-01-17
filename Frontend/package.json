@@ -20,6 +20,7 @@
     "history": "4.10.1",
     "mapbox-gl": "^2.0.1",
     "mapbox-gl-controls": "^1.6.5",
+    "material-ui-avatar-picker": "^1.0.4",
     "mdbreact": "^5.0.1",
     "moment": "^2.26.0",
     "node-sass": "4.14.1",
